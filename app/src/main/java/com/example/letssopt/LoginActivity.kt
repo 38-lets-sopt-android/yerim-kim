@@ -66,7 +66,8 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
     var context = LocalContext.current
-    val intent = Intent(context, SignUpActivity::class.java).apply {}
+    val toSignUp = Intent(context, SignUpActivity::class.java).apply {}
+    val toMain = Intent(context, MainActivity::class.java).apply {}
 
     Column(
         modifier = modifier
@@ -163,7 +164,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             modifier = Modifier
                 .padding(10.dp)
                 .clickable {
-                    context.startActivity(intent)
+                    context.startActivity(toSignUp)
                 }
         )
         Button(
@@ -171,7 +172,8 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 if ( savedEmail == null || savedPw == null ) {
                     Toast.makeText(context, "회원가입을 해주세요.", Toast.LENGTH_SHORT).show()
                 } else if ( id == savedEmail && pw == savedPw ) {
-                    Toast.makeText(context, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    context.startActivity(toMain)
                 } else {
                     Toast.makeText(context, "로그인 실패. 확인 후 다시 시도하세요.", Toast.LENGTH_SHORT).show()
                 }

@@ -1,6 +1,5 @@
 package com.example.letssopt.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -23,8 +22,8 @@ private val LightColorScheme = lightColorScheme(
     tertiary = Pink40
 
     /* Other default colors to override
-    background = Color(0xFFFFFBFE),
     surface = Color(0xFFFFFBFE),
+    background = Color(0xFFFFFBFE),
     onPrimary = Color.White,
     onSecondary = Color.White,
     onTertiary = Color.White,

@@ -71,7 +71,7 @@ fun isEmailValid(email: String): Boolean {
 fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
-    var pwplus by remember { mutableStateOf("") }
+    var pwCheck by remember { mutableStateOf("") }
     var context = LocalContext.current
     val intent = Intent(context, LoginActivity::class.java).apply {}
 
@@ -171,8 +171,8 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
                 .align(Alignment.Start)
         )
         TextField(
-            value = pwplus,
-            onValueChange = { pwplus = it },
+            value = pwCheck,
+            onValueChange = { pwCheck = it },
             placeholder = { Text("비밀번호를 다시 입력하세요") },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = SurfaceGrey,
@@ -191,18 +191,20 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                if (email.isEmpty() || pw.isEmpty() || pwplus.isEmpty() ) {
-                    Toast.makeText(context, "전부 입력해주세요.ㄴ", Toast.LENGTH_SHORT).show()
+                if (email.isEmpty() || pw.isEmpty() || pwCheck.isEmpty()) {
+                    Toast.makeText(context, "전부 입력해주세요.", Toast.LENGTH_SHORT).show()
                 } else if ( !isEmailValid(email) ) {
                     Toast.makeText(context, "이메일 형식을 지켜주세요.", Toast.LENGTH_SHORT).show()
                 } else if ( pw.length < 8 ) {
                     Toast.makeText(context, "비밀번호는 8자 이상으로 설정해주세요.", Toast.LENGTH_SHORT).show()
                 } else if ( pw.length > 12 ) {
                     Toast.makeText(context, "비밀번호는 12자 이하로 설정해주세요.", Toast.LENGTH_SHORT).show()
-                } else if ( pwplus != pw ) {
+                } else if ( pwCheck != pw ) {
                     Toast.makeText(context, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "회원가입 완료!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                    intent.putExtra("email", email)
+                    intent.putExtra("pw", pw)
                     context.startActivity(intent)
                 }
             },

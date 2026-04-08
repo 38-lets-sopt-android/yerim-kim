@@ -2,6 +2,7 @@ package com.example.letssopt
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -42,16 +43,17 @@ import com.example.letssopt.ui.theme.SurfaceGrey
 import com.example.letssopt.ui.theme.TextPrimary
 import com.example.letssopt.ui.theme.TextSecondaryGrey
 
-class loginActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting2(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    LoginScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        savedEmail = intent.getStringExtra("email"),
+                        savedPw = intent.getStringExtra("pw")
                     )
                 }
             }
@@ -60,11 +62,11 @@ class loginActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
+fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: String?) {
     var id by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
     var context = LocalContext.current
-    val intent = Intent(context, SignupActivity::class.java).apply {}
+    val intent = Intent(context, SignUpActivity::class.java).apply {}
 
     Column(
         modifier = modifier
@@ -111,8 +113,11 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = SurfaceGrey,
                 disabledContainerColor = SurfaceGrey,
-                errorContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey),
+                unfocusedContainerColor = SurfaceGrey,
+                focusedTextColor = TextPrimary,
+                disabledTextColor = TextPrimary,
+                unfocusedTextColor = TextPrimary
+            ),
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier
@@ -136,8 +141,11 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = SurfaceGrey,
                 disabledContainerColor = SurfaceGrey,
-                errorContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey),
+                unfocusedContainerColor = SurfaceGrey,
+                focusedTextColor = TextPrimary,
+                disabledTextColor = TextPrimary,
+                unfocusedTextColor = TextPrimary
+            ),
             singleLine = true,
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
@@ -160,10 +168,13 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
         )
         Button(
             onClick = {
-//                if ( id.length >= 6 ) {
-//                    Toast.makeText(context, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
-//                }
-//                else Toast.makeText(context, "로그인 실패! 6글자 이상 입력하세요.", Toast.LENGTH_SHORT).show()
+                if ( savedEmail == null || savedPw == null ) {
+                    Toast.makeText(context, "회원가입을 해주세요.", Toast.LENGTH_SHORT).show()
+                } else if ( id == savedEmail && pw == savedPw ) {
+                    Toast.makeText(context, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "로그인 실패. 확인 후 다시 시도하세요.", Toast.LENGTH_SHORT).show()
+                }
             },
             colors = ButtonDefaults.buttonColors(PrimaryRed),
             shape = RoundedCornerShape(8.dp),
@@ -180,8 +191,8 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview2() {
+fun LoginScreen() {
     LETSSOPTTheme {
-        Greeting2("Android")
+        LoginScreen(savedEmail = "email", savedPw = "pw")
     }
 }

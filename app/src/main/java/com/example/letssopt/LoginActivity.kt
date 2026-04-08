@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -148,6 +149,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 unfocusedTextColor = TextPrimary
             ),
             singleLine = true,
+            visualTransformation = PasswordVisualTransformation(), // 비밀번호 안 보이게
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
         )

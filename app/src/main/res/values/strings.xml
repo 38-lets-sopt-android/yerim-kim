@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">LETSSOPT</string>
     <string name="title_activity_login">loginActivity</string>
-    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signup">SignUpActivity</string>
 </resources>

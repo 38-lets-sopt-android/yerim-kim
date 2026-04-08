@@ -51,7 +51,6 @@ class SignUpActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold( modifier = Modifier.fillMaxSize() ) { innerPadding ->
                     SignUpScreen(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -60,6 +59,9 @@ class SignUpActivity : ComponentActivity() {
     }
 }
 
+/**
+ * @param email 회원가입 시 입력하는 이메일
+ * @return email이 옳은 형식인지에 대한 참거짓 반환 */
 fun isEmailValid(email: String): Boolean {
     val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
     val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
@@ -68,13 +70,12 @@ fun isEmailValid(email: String): Boolean {
 }
 
 @Composable
-fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
+fun SignUpScreen(modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
     var pwCheck by remember { mutableStateOf("") }
     var context = LocalContext.current
     val intent = Intent(context, LoginActivity::class.java).apply {}
-
 
     Column(
         modifier = modifier
@@ -93,6 +94,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .padding(top = 60.dp)
         )
+
         Text(
             text = "회원가입",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
@@ -114,6 +116,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
+
         TextField(
             value = email,
             onValueChange = { email = it },
@@ -142,6 +145,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.Start)
         )
+
         TextField(
             value = pw,
             onValueChange = { pw = it },
@@ -170,6 +174,7 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.Start)
         )
+
         TextField(
             value = pwCheck,
             onValueChange = { pwCheck = it },
@@ -225,6 +230,6 @@ fun SignUpScreen(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun SignUpScreen() {
     LETSSOPTTheme {
-        SignUpScreen("Android")
+        SignUpScreen()
     }
 }

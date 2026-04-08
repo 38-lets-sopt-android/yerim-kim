@@ -64,7 +64,7 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: String?) {
-    var id by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var pw by remember { mutableStateOf("") }
     var context = LocalContext.current
     val toSignUp = Intent(context, SignUpActivity::class.java).apply {}
@@ -87,6 +87,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             modifier = Modifier
                 .padding(top = 60.dp)
         )
+
         Text (
             text = "이메일로 로그인",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
@@ -108,9 +109,10 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
+
         TextField(
-            value = id,
-            onValueChange = { id = it },
+            value = email,
+            onValueChange = { email = it },
             placeholder = { Text("이메일 주소를 입력하세요") },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = SurfaceGrey,
@@ -136,6 +138,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             modifier = Modifier
                 .align(Alignment.Start)
         )
+
         TextField(
             value = pw,
             onValueChange = { pw = it },
@@ -158,7 +161,6 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
 
         Text(
             text = "아직 계정이 없으신가요? 회원가입",
-//            textDecoration = TextDecoration.Underline,
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             color = TextSecondaryGrey,
@@ -169,11 +171,12 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                     context.startActivity(toSignUp)
                 }
         )
+
         Button(
             onClick = {
                 if ( savedEmail == null || savedPw == null ) {
                     Toast.makeText(context, "회원가입을 해주세요.", Toast.LENGTH_SHORT).show()
-                } else if ( id == savedEmail && pw == savedPw ) {
+                } else if ( email == savedEmail && pw == savedPw ) {
                     Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                     context.startActivity(toMain)
                 } else {

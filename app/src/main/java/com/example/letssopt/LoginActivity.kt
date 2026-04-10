@@ -200,7 +200,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+private fun LoginScreenPreview() {
     LETSSOPTTheme {
         LoginScreen(savedEmail = "email", savedPw = "pw")
     }

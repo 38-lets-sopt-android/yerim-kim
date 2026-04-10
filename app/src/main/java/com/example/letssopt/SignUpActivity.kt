@@ -230,7 +230,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreen() {
+private fun SignUpScreenPreview() {
     LETSSOPTTheme {
         SignUpScreen()
     }

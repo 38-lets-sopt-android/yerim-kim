@@ -200,17 +200,17 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 if (email.isEmpty() || pw.isEmpty() || pwCheck.isEmpty()) {
-                    Toast.makeText(context, "전부 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.empty_signup, Toast.LENGTH_SHORT).show()
                 } else if (!isEmailValid(email)) {
-                    Toast.makeText(context, "이메일 형식을 지켜주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.invalid_email, Toast.LENGTH_SHORT).show()
                 } else if (pw.length < 8) {
-                    Toast.makeText(context, "비밀번호는 8자 이상으로 설정해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.password_too_short, Toast.LENGTH_SHORT).show()
                 } else if (pw.length > 12) {
-                    Toast.makeText(context, "비밀번호는 12자 이하로 설정해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.password_too_long, Toast.LENGTH_SHORT).show()
                 } else if (pwCheck != pw) {
-                    Toast.makeText(context, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.password_mismatch, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.succeed_signup, Toast.LENGTH_SHORT).show()
                     intent.putExtra("email", email)
                     intent.putExtra("pw", pw)
                     context.startActivity(intent)

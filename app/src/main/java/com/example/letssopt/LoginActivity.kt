@@ -175,12 +175,12 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
         Button(
             onClick = {
                 if (savedEmail == null || savedPw == null) {
-                    Toast.makeText(context, "회원가입을 해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.empty_login, Toast.LENGTH_SHORT).show()
                 } else if (email == savedEmail && pw == savedPw) {
-                    Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.succeed_login, Toast.LENGTH_SHORT).show()
                     context.startActivity(toMain)
                 } else {
-                    Toast.makeText(context, "로그인 실패. 확인 후 다시 시도하세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, R.string.fail_login, Toast.LENGTH_SHORT).show()
                 }
             },
             colors = ButtonDefaults.buttonColors(PrimaryRed),

@@ -32,6 +32,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -159,6 +160,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                 unfocusedTextColor = TextPrimary
             ),
             singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -188,6 +190,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                 unfocusedTextColor = TextPrimary
             ),
             singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
             shape = RoundedCornerShape(8.dp),
             modifier = Modifier.fillMaxWidth()
         )

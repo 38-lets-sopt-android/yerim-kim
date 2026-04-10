@@ -35,12 +35,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.ui.theme.BackgroundBlack
+import com.example.letssopt.ui.theme.Background
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.PrimaryRed
-import com.example.letssopt.ui.theme.SurfaceGrey
+import com.example.letssopt.ui.theme.Surface
 import com.example.letssopt.ui.theme.TextPrimary
-import com.example.letssopt.ui.theme.TextSecondaryGrey
+import com.example.letssopt.ui.theme.TextSecondary
 import java.util.regex.Pattern
 
 class SignUpActivity : ComponentActivity() {
@@ -79,7 +79,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .background(BackgroundBlack)
+            .background(Background)
             .padding(horizontal = 20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -111,7 +111,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
@@ -122,9 +122,9 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             onValueChange = { email = it },
             placeholder = { Text("이메일 주소를 입력하세요") },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = SurfaceGrey,
-                disabledContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey,
+                focusedContainerColor = Surface,
+                disabledContainerColor = Surface,
+                unfocusedContainerColor = Surface,
                 focusedTextColor = TextPrimary,
                 disabledTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary
@@ -141,7 +141,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
         )
@@ -151,9 +151,9 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             onValueChange = { pw = it },
             placeholder = { Text("비밀번호를 입력하세요") },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = SurfaceGrey,
-                disabledContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey,
+                focusedContainerColor = Surface,
+                disabledContainerColor = Surface,
+                unfocusedContainerColor = Surface,
                 focusedTextColor = TextPrimary,
                 disabledTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary
@@ -170,7 +170,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
         )
@@ -180,9 +180,9 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
             onValueChange = { pwCheck = it },
             placeholder = { Text("비밀번호를 다시 입력하세요") },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = SurfaceGrey,
-                disabledContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey,
+                focusedContainerColor = Surface,
+                disabledContainerColor = Surface,
+                unfocusedContainerColor = Surface,
                 focusedTextColor = TextPrimary,
                 disabledTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary

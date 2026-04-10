@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.ui.theme.BackgroundBlack
+import com.example.letssopt.ui.theme.Background
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.PrimaryRed
 import com.example.letssopt.ui.theme.TextPrimary
@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .background(BackgroundBlack)
+            .background(Background)
             .padding(horizontal = 20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

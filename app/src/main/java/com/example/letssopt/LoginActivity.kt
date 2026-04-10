@@ -37,12 +37,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.ui.theme.BackgroundBlack
+import com.example.letssopt.ui.theme.Background
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.PrimaryRed
-import com.example.letssopt.ui.theme.SurfaceGrey
+import com.example.letssopt.ui.theme.Surface
 import com.example.letssopt.ui.theme.TextPrimary
-import com.example.letssopt.ui.theme.TextSecondaryGrey
+import com.example.letssopt.ui.theme.TextSecondary
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,7 +72,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
 
     Column(
         modifier = modifier
-            .background(BackgroundBlack)
+            .background(Background)
             .padding(horizontal = 20.dp)
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -104,7 +104,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
@@ -115,9 +115,9 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             onValueChange = { email = it },
             placeholder = { Text("이메일 주소를 입력하세요") },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = SurfaceGrey,
-                disabledContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey,
+                focusedContainerColor = Surface,
+                disabledContainerColor = Surface,
+                unfocusedContainerColor = Surface,
                 focusedTextColor = TextPrimary,
                 disabledTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary
@@ -134,7 +134,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
         )
@@ -144,9 +144,9 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             onValueChange = { pw = it },
             placeholder = { Text("비밀번호를 입력하세요") },
             colors = TextFieldDefaults.colors(
-                focusedContainerColor = SurfaceGrey,
-                disabledContainerColor = SurfaceGrey,
-                unfocusedContainerColor = SurfaceGrey,
+                focusedContainerColor = Surface,
+                disabledContainerColor = Surface,
+                unfocusedContainerColor = Surface,
                 focusedTextColor = TextPrimary,
                 disabledTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary
@@ -163,7 +163,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             text = "아직 계정이 없으신가요? 회원가입",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
-            color = TextSecondaryGrey,
+            color = TextSecondary,
             fontSize = 14.sp,
             modifier = Modifier
                 .padding(10.dp)

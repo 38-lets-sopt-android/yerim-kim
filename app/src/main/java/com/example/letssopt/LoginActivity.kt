@@ -78,7 +78,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Text (
+        Text(
             text = "watcha",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
@@ -88,7 +88,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 .padding(top = 60.dp)
         )
 
-        Text (
+        Text(
             text = "이메일로 로그인",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
@@ -99,7 +99,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 .padding(top = 60.dp)
         )
 
-        Text (
+        Text(
             text = "이메일",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
@@ -129,7 +129,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 .padding(bottom = 20.dp)
         )
 
-        Text (
+        Text(
             text = "비밀번호",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontWeight = FontWeight.Normal,
@@ -174,9 +174,9 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
 
         Button(
             onClick = {
-                if ( savedEmail == null || savedPw == null ) {
+                if (savedEmail == null || savedPw == null) {
                     Toast.makeText(context, "회원가입을 해주세요.", Toast.LENGTH_SHORT).show()
-                } else if ( email == savedEmail && pw == savedPw ) {
+                } else if (email == savedEmail && pw == savedPw) {
                     Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
                     context.startActivity(toMain)
                 } else {
@@ -189,9 +189,11 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
                 .padding(bottom = 50.dp)
                 .fillMaxWidth()
                 .height(52.dp)
-        ){
-            Text(text = "로그인",
-                color = TextPrimary)
+        ) {
+            Text(
+                text = "로그인",
+                color = TextPrimary
+            )
         }
     }
 }

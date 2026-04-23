@@ -1,4 +1,4 @@
-package com.example.letssopt.ui.theme
+package com.example.letssopt.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LETSSOPT" >
         <activity
-            android:name=".SignUpActivity"
+            android:name=".presentation.SignUpActivity"
             android:exported="false"
             android:label="SignUpActivity"
             android:theme="@style/Theme.LETSSOPT" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.LoginActivity"
             android:exported="true"
             android:label="LoginActivity"
             android:theme="@style/Theme.LETSSOPT"  >
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:label="MainActivity"
             android:theme="@style/Theme.LETSSOPT" >

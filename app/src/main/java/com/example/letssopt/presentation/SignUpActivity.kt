@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -36,13 +36,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.ui.theme.Background
-import com.example.letssopt.ui.theme.LETSSOPTTheme
-import com.example.letssopt.ui.theme.PrimaryRed
-import com.example.letssopt.ui.theme.Surface
-import com.example.letssopt.ui.theme.TextPrimary
-import com.example.letssopt.ui.theme.TextSecondary
-import java.util.regex.Pattern
+import com.example.letssopt.R
+import com.example.letssopt.common.util.isEmailValid
+import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.designsystem.theme.PrimaryRed
+import com.example.letssopt.designsystem.theme.Surface
+import com.example.letssopt.designsystem.theme.TextPrimary
+import com.example.letssopt.designsystem.theme.TextSecondary
 
 class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,15 +61,7 @@ class SignUpActivity : ComponentActivity() {
     }
 }
 
-/**
- * @param email 회원가입 시 입력하는 이메일
- * @return email이 옳은 형식인지에 대한 참거짓 반환 */
-fun isEmailValid(email: String): Boolean {
-    val expression = "^[\\w.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$"
-    val pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
 
-    return pattern.matcher(email).matches()
-}
 
 @Composable
 fun SignUpScreen(modifier: Modifier = Modifier) {

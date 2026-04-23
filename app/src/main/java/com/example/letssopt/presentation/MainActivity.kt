@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -20,10 +20,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.letssopt.ui.theme.Background
-import com.example.letssopt.ui.theme.LETSSOPTTheme
-import com.example.letssopt.ui.theme.PrimaryRed
-import com.example.letssopt.ui.theme.TextPrimary
+import com.example.letssopt.R
+import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.designsystem.theme.PrimaryRed
+import com.example.letssopt.designsystem.theme.TextPrimary
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

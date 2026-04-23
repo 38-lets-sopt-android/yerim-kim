@@ -46,21 +46,29 @@ class SignUpActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SignUpScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        onSignUpSuccess = { email, password ->
+                            val intent = Intent(this, LoginActivity::class.java).apply {
+                                putExtra("email", email)
+                                putExtra("password", password)
+                            }
+                            startActivity(intent)
+                        }
                     )
                 }
             }
         }
     }
 }
-
 @Composable
-fun SignUpScreen(modifier: Modifier = Modifier) {
+fun SignUpScreen(
+    modifier: Modifier = Modifier,
+     onSignUpSuccess: (String, String) -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordCheck by remember { mutableStateOf("") }
-    var context = LocalContext.current
-    val intent = Intent(context, LoginActivity::class.java).apply {}
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -143,9 +151,7 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
 
                 if (result == R.string.succeed_signup) {
-                    intent.putExtra("email", email)
-                    intent.putExtra("password", password)
-                    context.startActivity(intent)
+                    onSignUpSuccess(email, password)
                 }
             }
         )
@@ -156,6 +162,8 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun SignUpScreenPreview() {
     LETSSOPTTheme {
-        SignUpScreen()
+        SignUpScreen(
+            onSignUpSuccess = { _, _ -> }
+        )
     }
 }

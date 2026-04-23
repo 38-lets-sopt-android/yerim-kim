@@ -50,7 +50,15 @@ class LoginActivity : ComponentActivity() {
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
                         savedEmail = intent.getStringExtra("email"),
-                        savedPassword = intent.getStringExtra("password")
+                        savedPassword = intent.getStringExtra("password"),
+                        toSignUp = {
+                            val intent = Intent(this, SignUpActivity::class.java)
+                            startActivity(intent)
+                        },
+                        toMain = {
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        }
                     )
                 }
             }
@@ -62,13 +70,13 @@ class LoginActivity : ComponentActivity() {
 fun LoginScreen(
     modifier: Modifier = Modifier,
     savedEmail: String?,
-    savedPassword: String?
+    savedPassword: String?,
+    toSignUp: () -> Unit,
+    toMain: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var context = LocalContext.current
-    val toSignUp = Intent(context, SignUpActivity::class.java).apply {}
-    val toMain = Intent(context, MainActivity::class.java).apply {}
+    val context = LocalContext.current
 
     Column(
         modifier = modifier
@@ -136,9 +144,7 @@ fun LoginScreen(
             fontSize = 14.sp,
             modifier = Modifier
                 .padding(10.dp)
-                .clickable {
-                    context.startActivity(toSignUp)
-                }
+                .clickable { toSignUp() }
         )
 
         WatchaButton(
@@ -150,7 +156,7 @@ fun LoginScreen(
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
 
                 if (result == R.string.succeed_login) {
-                    context.startActivity(toMain)
+                    toMain()
                 }
             }
         )
@@ -161,6 +167,10 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LETSSOPTTheme {
-        LoginScreen(savedEmail = "email", savedPassword = "password")
+        LoginScreen(savedEmail = "email",
+            savedPassword = "password",
+            toSignUp = {},
+            toMain = {}
+        )
     }
 }

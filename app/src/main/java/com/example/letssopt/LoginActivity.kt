@@ -63,9 +63,13 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: String?) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    savedEmail: String?,
+    savedPw: String?
+) {
     var email by remember { mutableStateOf("") }
-    var pw by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var context = LocalContext.current
     val toSignUp = Intent(context, SignUpActivity::class.java).apply {}
     val toMain = Intent(context, MainActivity::class.java).apply {}
@@ -140,8 +144,8 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
         )
 
         TextField(
-            value = pw,
-            onValueChange = { pw = it },
+            value = password,
+            onValueChange = { password = it },
             placeholder = { Text("비밀번호를 입력하세요") },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Surface,
@@ -176,7 +180,7 @@ fun LoginScreen(modifier: Modifier = Modifier, savedEmail: String?, savedPw: Str
             onClick = {
                 if (savedEmail == null || savedPw == null) {
                     Toast.makeText(context, R.string.empty_login, Toast.LENGTH_SHORT).show()
-                } else if (email == savedEmail && pw == savedPw) {
+                } else if (email == savedEmail && password == savedPw) {
                     Toast.makeText(context, R.string.succeed_login, Toast.LENGTH_SHORT).show()
                     context.startActivity(toMain)
                 } else {

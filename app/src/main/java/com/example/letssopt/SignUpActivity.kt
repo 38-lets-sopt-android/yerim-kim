@@ -73,8 +73,8 @@ fun isEmailValid(email: String): Boolean {
 @Composable
 fun SignUpScreen(modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
-    var pw by remember { mutableStateOf("") }
-    var pwCheck by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var passwordCheck by remember { mutableStateOf("") }
     var context = LocalContext.current
     val intent = Intent(context, LoginActivity::class.java).apply {}
 
@@ -148,8 +148,8 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
         )
 
         TextField(
-            value = pw,
-            onValueChange = { pw = it },
+            value = password,
+            onValueChange = { password = it },
             placeholder = { Text("비밀번호를 입력하세요") },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Surface,
@@ -178,8 +178,8 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
         )
 
         TextField(
-            value = pwCheck,
-            onValueChange = { pwCheck = it },
+            value = passwordCheck,
+            onValueChange = { passwordCheck = it },
             placeholder = { Text("비밀번호를 다시 입력하세요") },
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Surface,
@@ -199,20 +199,20 @@ fun SignUpScreen(modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                if (email.isEmpty() || pw.isEmpty() || pwCheck.isEmpty()) {
+                if (email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty()) {
                     Toast.makeText(context, R.string.empty_signup, Toast.LENGTH_SHORT).show()
                 } else if (!isEmailValid(email)) {
                     Toast.makeText(context, R.string.invalid_email, Toast.LENGTH_SHORT).show()
-                } else if (pw.length < 8) {
+                } else if (password.length < 8) {
                     Toast.makeText(context, R.string.password_too_short, Toast.LENGTH_SHORT).show()
-                } else if (pw.length > 12) {
+                } else if (password.length > 12) {
                     Toast.makeText(context, R.string.password_too_long, Toast.LENGTH_SHORT).show()
-                } else if (pwCheck != pw) {
+                } else if (passwordCheck != password) {
                     Toast.makeText(context, R.string.password_mismatch, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, R.string.succeed_signup, Toast.LENGTH_SHORT).show()
                     intent.putExtra("email", email)
-                    intent.putExtra("pw", pw)
+                    intent.putExtra("pw", password)
                     context.startActivity(intent)
                 }
             },

@@ -12,16 +12,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,15 +26,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
+import com.example.letssopt.common.util.isLoginValid
+import com.example.letssopt.designsystem.component.WatchaButton
+import com.example.letssopt.designsystem.component.WatchaFormField
+import com.example.letssopt.designsystem.component.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.designsystem.theme.Surface
 import com.example.letssopt.designsystem.theme.TextPrimary
 import com.example.letssopt.designsystem.theme.TextSecondary
 
@@ -55,7 +50,7 @@ class LoginActivity : ComponentActivity() {
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
                         savedEmail = intent.getStringExtra("email"),
-                        savedPw = intent.getStringExtra("pw")
+                        savedPassword = intent.getStringExtra("password")
                     )
                 }
             }
@@ -67,7 +62,7 @@ class LoginActivity : ComponentActivity() {
 fun LoginScreen(
     modifier: Modifier = Modifier,
     savedEmail: String?,
-    savedPw: String?
+    savedPassword: String?
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -77,9 +72,9 @@ fun LoginScreen(
 
     Column(
         modifier = modifier
+            .fillMaxSize()
             .background(Background)
-            .padding(horizontal = 20.dp)
-            .fillMaxSize(),
+            .padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -104,62 +99,31 @@ fun LoginScreen(
                 .padding(top = 60.dp)
         )
 
-        Text(
+        WatchaFormField(
             text = "이메일",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
 
-        TextField(
+        WatchaTextField(
             value = email,
             onValueChange = { email = it },
-            placeholder = { Text("이메일 주소를 입력하세요") },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Surface,
-                disabledContainerColor = Surface,
-                unfocusedContainerColor = Surface,
-                focusedTextColor = TextPrimary,
-                disabledTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary
-            ),
-            singleLine = true,
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp)
+            placeholder = "이메일 주소를 입력하세요",
         )
 
-        Text(
+        WatchaFormField(
             text = "비밀번호",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            color = TextSecondary,
             modifier = Modifier
                 .align(Alignment.Start)
+                .padding(top = 30.dp)
         )
 
-        TextField(
+        WatchaTextField(
             value = password,
             onValueChange = { password = it },
-            placeholder = { Text("비밀번호를 입력하세요") },
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Surface,
-                disabledContainerColor = Surface,
-                unfocusedContainerColor = Surface,
-                focusedTextColor = TextPrimary,
-                disabledTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary
-            ),
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation(), // 비밀번호 안 보이게
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier.fillMaxWidth()
+            placeholder = "비밀번호를 입력하세요",
+            isPassword = true
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -177,29 +141,19 @@ fun LoginScreen(
                 }
         )
 
-        Button(
+        WatchaButton(
+            text = "로그인",
+            modifier = Modifier.padding(bottom = 50.dp),
             onClick = {
-                if (savedEmail == null || savedPw == null) {
-                    Toast.makeText(context, R.string.empty_login, Toast.LENGTH_SHORT).show()
-                } else if (email == savedEmail && password == savedPw) {
-                    Toast.makeText(context, R.string.succeed_login, Toast.LENGTH_SHORT).show()
+                val result = isLoginValid(email, password, savedEmail, savedPassword)
+
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
+
+                if (result == R.string.succeed_login) {
                     context.startActivity(toMain)
-                } else {
-                    Toast.makeText(context, R.string.fail_login, Toast.LENGTH_SHORT).show()
                 }
-            },
-            colors = ButtonDefaults.buttonColors(PrimaryRed),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .padding(bottom = 50.dp)
-                .fillMaxWidth()
-                .height(52.dp)
-        ) {
-            Text(
-                text = "로그인",
-                color = TextPrimary
-            )
-        }
+            }
+        )
     }
 }
 
@@ -207,6 +161,6 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LETSSOPTTheme {
-        LoginScreen(savedEmail = "email", savedPw = "pw")
+        LoginScreen(savedEmail = "email", savedPassword = "password")
     }
 }

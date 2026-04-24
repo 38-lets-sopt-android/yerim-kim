@@ -48,7 +48,7 @@ fun WatchaPartyCards(
 
 @Preview(showBackground = true)
 @Composable
-fun WatchaContentRowPreview() {
+private fun WatchaContentRowPreview() {
     LETSSOPTTheme {
         val dummyItems = partyImages
 

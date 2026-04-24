@@ -67,7 +67,7 @@ fun WatchaBottomBar(
 
 @Preview(showBackground = true)
 @Composable
-fun WatchaBottomBarPreview() {
+private fun WatchaBottomBarPreview() {
     LETSSOPTTheme {
         WatchaBottomBar(
             items = icons,

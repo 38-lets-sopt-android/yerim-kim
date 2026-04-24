@@ -53,7 +53,7 @@ fun WatchaFolder(
 
 @Preview(showBackground = true)
 @Composable
-fun WatchaFolderPreview() {
+private fun WatchaFolderPreview() {
     LETSSOPTTheme {
         WatchaFolder(
             item = ForderItem(

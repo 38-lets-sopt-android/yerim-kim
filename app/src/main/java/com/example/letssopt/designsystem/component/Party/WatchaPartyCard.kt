@@ -86,7 +86,7 @@ fun WatchaPartyCard(
 
 @Preview(showBackground = true)
 @Composable
-fun BannerCardPreview() {
+private fun BannerCardPreview() {
     LETSSOPTTheme {
         WatchaPartyCard(
             item = PartyItem(

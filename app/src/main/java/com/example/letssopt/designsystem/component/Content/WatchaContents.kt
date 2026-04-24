@@ -45,7 +45,7 @@ fun WatchaContents(
 
 @Preview(showBackground = true)
 @Composable
-fun WatchaContentsPreview() {
+private fun WatchaContentsPreview() {
     LETSSOPTTheme {
         WatchaContents(
             images = listOf(

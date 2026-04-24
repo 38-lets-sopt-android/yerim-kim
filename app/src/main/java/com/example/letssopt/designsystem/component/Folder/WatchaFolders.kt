@@ -39,7 +39,7 @@ fun WatchaFolders(
 
 @Preview(showBackground = true)
 @Composable
-fun WatchaFoldersPreview() {
+private fun WatchaFoldersPreview() {
     LETSSOPTTheme {
 
         val dummyItems = listOf(

@@ -44,6 +44,15 @@ class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sharedPreferences = getSharedPreferences("login_preferences", MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("auto_login", false)) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         setContent {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -56,6 +65,10 @@ class LoginActivity : ComponentActivity() {
                             startActivity(intent)
                         },
                         toMain = {
+                            sharedPreferences.edit()
+                                .putBoolean("auto_login", true)
+                                .apply()
+
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }

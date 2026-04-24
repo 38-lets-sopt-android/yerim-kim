@@ -1,4 +1,4 @@
-package com.example.letssopt.designsystem.component
+package com.example.letssopt.designsystem.component.Folder
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

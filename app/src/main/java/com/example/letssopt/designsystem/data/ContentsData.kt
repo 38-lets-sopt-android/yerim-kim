@@ -1,7 +1,7 @@
 package com.example.letssopt.designsystem.data
 
 import com.example.letssopt.R
-import com.example.letssopt.designsystem.component.PartyItem
+import com.example.letssopt.designsystem.component.Party.PartyItem
 
 val contentImages = listOf(
     R.drawable.img_content1,

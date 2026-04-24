@@ -1,4 +1,4 @@
-package com.example.letssopt.designsystem.component
+package com.example.letssopt.designsystem.component.Button
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon

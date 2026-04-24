@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.common.util.isLoginValid
-import com.example.letssopt.designsystem.component.WatchaButton
-import com.example.letssopt.designsystem.component.WatchaFormField
-import com.example.letssopt.designsystem.component.WatchaSemiTitle
-import com.example.letssopt.designsystem.component.WatchaTextField
+import com.example.letssopt.designsystem.component.Button.WatchaButton
+import com.example.letssopt.designsystem.component.Text.WatchaFormField
+import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
+import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed

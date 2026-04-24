@@ -16,9 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.letssopt.designsystem.component.WatchaBottomBar
-import com.example.letssopt.designsystem.component.WatchaFolders
-import com.example.letssopt.designsystem.component.WatchaSemiTitle
+import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
+import com.example.letssopt.designsystem.component.Folder.WatchaFolders
+import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.data.FolderImages
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background

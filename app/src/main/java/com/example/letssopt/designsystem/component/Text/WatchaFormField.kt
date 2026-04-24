@@ -1,4 +1,4 @@
-package com.example.letssopt.designsystem.component
+package com.example.letssopt.designsystem.component.Text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
 import com.example.letssopt.designsystem.theme.TextSecondary
 
 @Composable
@@ -17,7 +18,7 @@ fun WatchaFormField(
 ) {
     Text(
         text = text,
-        fontFamily = FontFamily(Font(com.example.letssopt.R.font.pretendard_regular)),
+        fontFamily = FontFamily(Font(R.font.pretendard_regular)),
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         color = TextSecondary,

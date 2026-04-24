@@ -1,4 +1,4 @@
-package com.example.letssopt.designsystem.component
+package com.example.letssopt.designsystem.component.Bar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
+import com.example.letssopt.designsystem.component.Button.WatchaTopIconButton
 import com.example.letssopt.designsystem.data.BottomBarIcon
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background

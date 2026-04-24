@@ -139,7 +139,7 @@ fun SignUpScreen(
 
         WatchaTextField(
             value = passwordCheck,
-            onValueChange = { onPasswordCheckChange },
+            onValueChange = onPasswordCheckChange,
             placeholder = "비밀번호를 다시 입력하세요",
             isPassword = true
         )

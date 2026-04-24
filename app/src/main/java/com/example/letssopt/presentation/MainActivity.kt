@@ -40,6 +40,7 @@ import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.data.partyImages
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.designsystem.theme.TextSecondary
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,11 +48,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MainScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
                     )
-                }
             }
         }
     }
@@ -68,14 +67,16 @@ fun MainScreen(modifier: Modifier = Modifier) {
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier
+//                .padding(bottom = innerPadding.calculateBottomPadding()),
+                .padding(innerPadding),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize()
                     .background(Background)
-                    .padding(start = 8.dp)
+                    .padding(top = 10.dp)
                     .verticalScroll(rememberScrollState()), // 스크롤
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top
@@ -93,16 +94,19 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
                 WatchaSemiTitle(
                     text = "방금 막 도착한 신상 컨텐츠",
-                    modifier = Modifier
+                    modifier = Modifier.padding(start = 19.dp)
                 )
 
                 Text(
                     text = "예능부터 드라마까지!",
-                    fontFamily = FontFamily(Font(R.font.pretendard_bold)),
+                    fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                     fontWeight = FontWeight(600),
                     fontSize = 18.sp,
                     color = Color(0xFFBABAC1),
-                    modifier = modifier
+                    modifier = modifier.padding(
+                        start = 19.dp,
+                        bottom = 20.dp
+                    )
                 )
 
                 WatchaBanner(
@@ -112,7 +116,23 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 Icon(
                     painter = painterResource(id = R.drawable.img_watgorism),
                     contentDescription = null,
-                    tint = Color.Unspecified
+                    tint = Color.Unspecified,
+                    modifier = Modifier.padding(
+                        start = 19.dp,
+                        top = 20.dp
+                    )
+                )
+
+                Text(
+                    text = "예능부터 드라마까지!",
+                    fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                    fontWeight = FontWeight(600),
+                    fontSize = 20.sp,
+                    color = TextSecondary,
+                    modifier = modifier.padding(
+                        start = 19.dp,
+                        bottom = 10.dp
+                    )
                 )
 
                 WatchaContents(
@@ -121,7 +141,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
                 WatchaSemiTitle(
                     text = "공개 예정 콘텐츠",
-                    modifier = Modifier
+                    modifier = modifier.padding(
+                        start = 19.dp,
+                        top = 20.dp,
+                        bottom = 10.dp
+                    )
                 )
 
                 WatchaContents(
@@ -130,12 +154,16 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
                 WatchaSemiTitle(
                     text = "왓챠 파티",
-                    modifier = Modifier
+                    modifier = modifier.padding(
+                        start = 19.dp,
+                        top = 20.dp,
+                        bottom = 10.dp
+                    )
                 )
 
                 WatchaPartyCards(
                     items = partyImages,
-                    modifier = Modifier
+                    modifier = Modifier.padding(start = 19.dp)
                 )
 
                 Spacer(modifier = Modifier.height(0.dp))

@@ -32,11 +32,11 @@ import com.example.letssopt.R
 import com.example.letssopt.common.util.isSignUpValid
 import com.example.letssopt.designsystem.component.WatchaButton
 import com.example.letssopt.designsystem.component.WatchaFormField
+import com.example.letssopt.designsystem.component.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.designsystem.theme.TextPrimary
 
 class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,12 +88,8 @@ fun SignUpScreen(
                 .padding(top = 60.dp)
         )
 
-        Text(
+        WatchaSemiTitle(
             text = "회원가입",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = TextPrimary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 60.dp)

@@ -33,11 +33,11 @@ import com.example.letssopt.R
 import com.example.letssopt.common.util.isLoginValid
 import com.example.letssopt.designsystem.component.WatchaButton
 import com.example.letssopt.designsystem.component.WatchaFormField
+import com.example.letssopt.designsystem.component.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.designsystem.theme.TextPrimary
 import com.example.letssopt.designsystem.theme.TextSecondary
 
 class LoginActivity : ComponentActivity() {
@@ -96,12 +96,8 @@ fun LoginScreen(
                 .padding(top = 60.dp)
         )
 
-        Text(
+        WatchaSemiTitle(
             text = "이메일로 로그인",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = TextPrimary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 60.dp)

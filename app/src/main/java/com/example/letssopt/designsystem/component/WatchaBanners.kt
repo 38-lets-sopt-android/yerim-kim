@@ -1,6 +1,7 @@
 package com.example.letssopt.designsystem.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,12 +19,13 @@ fun WatchaBanner(
 ) {
     val startIndex = Int.MAX_VALUE / 2
     val listState = rememberLazyListState(
-        initialFirstVisibleItemIndex = startIndex - startIndex % images.size
+        initialFirstVisibleItemIndex = startIndex - startIndex % images.size,
+        initialFirstVisibleItemScrollOffset = 700
     )
 
     LazyRow(
         state = listState,
-        modifier = modifier
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(
             count = Int.MAX_VALUE

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,8 +36,11 @@ import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
 import com.example.letssopt.designsystem.theme.TextSecondary
+import com.example.letssopt.presentation.viewmodel.LoginViewModel
 
 class LoginActivity : ComponentActivity() {
+    private val viewModel: LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -58,6 +58,10 @@ class LoginActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
+                        email = viewModel.email.value,
+                        password = viewModel.password.value,
+                        onEmailChange = viewModel::updateEmail,
+                        onPasswordChange = viewModel::updatePassword,
                         savedEmail = intent.getStringExtra("email"),
                         savedPassword = intent.getStringExtra("password"),
                         toSignUp = {
@@ -82,13 +86,15 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    email: String,
+    password: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     savedEmail: String?,
     savedPassword: String?,
     toSignUp: () -> Unit,
     toMain: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     Column(
@@ -125,7 +131,7 @@ fun LoginScreen(
 
         WatchaTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = onEmailChange,
             placeholder = "이메일 주소를 입력하세요",
         )
 
@@ -138,7 +144,7 @@ fun LoginScreen(
 
         WatchaTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = onPasswordChange,
             placeholder = "비밀번호를 입력하세요",
             isPassword = true
         )
@@ -176,7 +182,12 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LETSSOPTTheme {
-        LoginScreen(savedEmail = "email",
+        LoginScreen(
+            email = "test@email.com",
+            password = "12345678",
+            onEmailChange = {},
+            onPasswordChange = {},
+            savedEmail = "email",
             savedPassword = "password",
             toSignUp = {},
             toMain = {}

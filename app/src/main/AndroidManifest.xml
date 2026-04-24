@@ -13,7 +13,7 @@
         android:theme="@style/Theme.LETSSOPT">
         <activity
             android:name=".presentation.FolderActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="@string/title_activity_folder"
             android:theme="@style/Theme.LETSSOPT" />
         <activity
@@ -33,7 +33,7 @@
         </activity>
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="true"
+            android:exported="false"
             android:label="MainActivity"
             android:theme="@style/Theme.LETSSOPT">
         </activity>

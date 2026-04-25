@@ -3,7 +3,7 @@ package com.example.letssopt.designsystem.component.Party
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,21 +25,13 @@ fun WatchaPartyCards(
 ) {
     if (items.isEmpty()) return
 
-    val startIndex = Int.MAX_VALUE / 2
-    val listState = rememberLazyListState(
-        initialFirstVisibleItemIndex = startIndex - startIndex % items.size
-    )
-
     LazyRow(
-        state = listState,
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier
     ) {
-        items(
-            count = Int.MAX_VALUE
-        ) { index ->
+        items(items) { item ->
             WatchaPartyCard(
-                item = items[index % items.size],
+                item = item,
                 modifier = Modifier.background(Background)
             )
         }

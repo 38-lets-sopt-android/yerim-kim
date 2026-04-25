@@ -6,7 +6,8 @@ import com.example.letssopt.designsystem.component.Party.PartyItem
 val contentImages = listOf(
     R.drawable.img_content1,
     R.drawable.img_content2,
-    R.drawable.img_content3
+    R.drawable.img_content3,
+    R.drawable.img_content1
 )
 
 val bannerImages = listOf(

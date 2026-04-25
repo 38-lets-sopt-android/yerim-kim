@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Banner.WatchaBanner
 import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
-import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Bar.WatchaMainTopBar
+import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.data.bannerImages
@@ -68,7 +68,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
     ) { innerPadding ->
         Column(
             modifier = Modifier
-//                .padding(bottom = innerPadding.calculateBottomPadding()),
                 .padding(innerPadding),
             verticalArrangement = Arrangement.SpaceBetween
         ) {

@@ -34,13 +34,14 @@ import com.example.letssopt.designsystem.component.Bar.WatchaMainTopBar
 import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
+import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
 import com.example.letssopt.designsystem.data.bannerImages
 import com.example.letssopt.designsystem.data.contentImages
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.data.partyImages
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
-import com.example.letssopt.designsystem.theme.TextSecondary
+import com.example.letssopt.designsystem.theme.TextPrimary
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,19 +119,19 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     tint = Color.Unspecified,
                     modifier = Modifier.padding(
                         start = 19.dp,
-                        top = 20.dp
+                        top = 20.dp,
+                        bottom = 5.dp
                     )
                 )
 
-                Text(
+                WatchaSubTitleRow(
                     text = "예능부터 드라마까지!",
-                    fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                    fontWeight = FontWeight(600),
-                    fontSize = 20.sp,
-                    color = TextSecondary,
+                    moreInfo = "더보기",
+                    color = Color(0xFFBABAC1),
                     modifier = modifier.padding(
                         start = 19.dp,
-                        bottom = 10.dp
+                        bottom = 10.dp,
+                        end = 19.dp
                     )
                 )
 
@@ -138,13 +139,17 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     images = contentImages
                 )
 
-                WatchaSemiTitle(
+                WatchaSubTitleRow(
                     text = "공개 예정 콘텐츠",
+                    moreInfo = "더보기",
+                    color = TextPrimary,
                     modifier = modifier.padding(
-                        start = 19.dp,
                         top = 20.dp,
-                        bottom = 10.dp
+                        bottom = 10.dp,
+                        start = 19.dp,
+                        end = 19.dp
                     )
+                        .align(Alignment.CenterHorizontally)
                 )
 
                 WatchaContents(

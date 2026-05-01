@@ -73,8 +73,7 @@ fun FolderScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaFolders(
-                    items = FolderImages,
-                    modifier = Modifier
+                    items = FolderImages
                 )
             }
         }
@@ -83,7 +82,7 @@ fun FolderScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun FolderScreenPreview() {
+private fun FolderScreenPreview() {
     LETSSOPTTheme {
         FolderScreen()
     }

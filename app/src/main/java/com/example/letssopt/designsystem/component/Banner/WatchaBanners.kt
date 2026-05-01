@@ -11,10 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun WatchaBanner(
-    images: List<Int>,
+    images: ImmutableList<Int>,
     modifier: Modifier = Modifier
 ) {
     val startIndex = Int.MAX_VALUE / 2

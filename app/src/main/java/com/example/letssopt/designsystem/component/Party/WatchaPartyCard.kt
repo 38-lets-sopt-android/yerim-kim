@@ -18,19 +18,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
-import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
 import com.example.letssopt.designsystem.theme.Surface
 import com.example.letssopt.designsystem.theme.TextPrimary
 
 @Composable
 fun WatchaPartyCard(
-    item: PartyItem,
-    modifier: Modifier
+    item: PartyItem
 ) {
     Box (
         modifier = Modifier
@@ -84,17 +81,17 @@ fun WatchaPartyCard(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-private fun BannerCardPreview() {
-    LETSSOPTTheme {
-        WatchaPartyCard(
-            item = PartyItem(
-                image = R.drawable.img_party1,
-                time = "오늘 21:13에 시작",
-                tag = "#왕과사는 남자"
-            ),
-            modifier = Modifier
-        )
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//private fun BannerCardPreview() {
+//    LETSSOPTTheme {
+//        WatchaPartyCard(
+//            item = PartyItem(
+//                image = R.drawable.img_party1,
+//                time = "오늘 21:13에 시작",
+//                tag = "#왕과사는 남자"
+//            ),
+//            modifier = Modifier
+//        )
+//    }
+//}

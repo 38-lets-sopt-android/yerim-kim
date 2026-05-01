@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Button.WatchaTopIconButton
-import com.example.letssopt.designsystem.data.BottomBarIcon
+import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.Disabled
@@ -25,7 +25,7 @@ import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 
 @Composable
 fun WatchaBottomBar(
-    items: List<BottomBarIcon>,
+    items: List<BottomBarTab>,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -52,7 +52,7 @@ fun WatchaBottomBar(
                         onClick = { onItemClick(index) }
                     )
                     Text(
-                        text = item.text,
+                        text = BottomBarTab.MAIN.label,
                         fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                         fontWeight = FontWeight(400),
                         color = Disabled,

@@ -3,6 +3,8 @@ package com.example.letssopt.presentation.main
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Party.PartyItem
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 class MainViewModel : ViewModel() {
 
@@ -14,7 +16,8 @@ class MainViewModel : ViewModel() {
         BannerItem(R.drawable.img_banner2),
         BannerItem(R.drawable.img_banner3)
     )
-    val banners get() = _banners
+    val banners: ImmutableList<Int>
+        get() = _banners.map { it.image }.toImmutableList()
 
     private val _contents = listOf(
         ContentItem(R.drawable.img_content1),
@@ -24,7 +27,8 @@ class MainViewModel : ViewModel() {
         ContentItem(R.drawable.img_content2),
         ContentItem(R.drawable.img_content3)
     )
-    val contents get() = _contents
+    val contents: ImmutableList<Int>
+        get() = _contents.map { it.image }.toImmutableList()
 
     private val _parties = listOf(
         PartyItem(

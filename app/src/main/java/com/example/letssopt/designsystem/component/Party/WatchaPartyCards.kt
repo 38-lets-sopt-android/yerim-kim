@@ -1,13 +1,11 @@
 package com.example.letssopt.designsystem.component.Party
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.letssopt.designsystem.theme.Background
 
 data class PartyItem(
     val image: Int,
@@ -28,8 +26,7 @@ fun WatchaPartyCards(
     ) {
         items(items) { item ->
             WatchaPartyCard(
-                item = item,
-                modifier = Modifier.background(Background)
+                item = item
             )
         }
     }

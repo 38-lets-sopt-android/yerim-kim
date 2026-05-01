@@ -49,7 +49,7 @@ fun MainScreen(
         }
     ) { innerPadding ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(innerPadding),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -84,14 +84,14 @@ fun MainScreen(
                     fontWeight = FontWeight(600),
                     fontSize = 18.sp,
                     color = Color(0xFFBABAC1),
-                    modifier = modifier.padding(
+                    modifier = Modifier.padding(
                         start = 19.dp,
                         bottom = 20.dp
                     )
                 )
 
                 WatchaBanner(
-                    images = viewModel.banners.map { it.image }
+                    images = viewModel.banners
                 )
 
                 Icon(
@@ -109,7 +109,7 @@ fun MainScreen(
                     text = "예능부터 드라마까지!",
                     moreInfo = "더보기",
                     color = Color(0xFFBABAC1),
-                    modifier = modifier.padding(
+                    modifier = Modifier.padding(
                         start = 19.dp,
                         bottom = 10.dp,
                         end = 19.dp
@@ -117,14 +117,14 @@ fun MainScreen(
                 )
 
                 WatchaContents(
-                    images = viewModel.contents.map { it.image }
+                    images = viewModel.contents
                 )
 
                 WatchaSubTitleRow(
                     text = "공개 예정 콘텐츠",
                     moreInfo = "더보기",
                     color = TextPrimary,
-                    modifier = modifier.padding(
+                    modifier = Modifier.padding(
                         top = 20.dp,
                         bottom = 10.dp,
                         start = 19.dp,
@@ -134,12 +134,12 @@ fun MainScreen(
                 )
 
                 WatchaContents(
-                    images = viewModel.contents.map { it.image }
+                    images = viewModel.contents
                 )
 
                 WatchaSemiTitle(
                     text = "왓챠 파티",
-                    modifier = modifier.padding(
+                    modifier = Modifier.padding(
                         start = 19.dp,
                         top = 20.dp,
                         bottom = 10.dp

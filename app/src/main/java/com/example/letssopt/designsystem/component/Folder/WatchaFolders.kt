@@ -17,8 +17,7 @@ import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 
 @Composable
 fun WatchaFolders(
-    items: List<ForderItem>,
-    modifier: Modifier
+    items: List<ForderItem>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -62,8 +61,7 @@ private fun WatchaFoldersPreview() {
         )
 
         WatchaFolders(
-            items = dummyItems,
-            modifier = Modifier
+            items = dummyItems
         )
     }
 }

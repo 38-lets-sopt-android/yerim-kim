@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Banner.WatchaBanner
 import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
@@ -30,15 +31,15 @@ import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
-import com.example.letssopt.designsystem.data.bannerImages
-import com.example.letssopt.designsystem.data.contentImages
 import com.example.letssopt.designsystem.data.icons
-import com.example.letssopt.designsystem.data.partyImages
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.TextPrimary
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun MainScreen(
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = viewModel()
+) {
     Scaffold(
         bottomBar = {
             WatchaBottomBar(
@@ -90,7 +91,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaBanner(
-                    images = bannerImages
+                    images = viewModel.banners.map { it.image }
                 )
 
                 Icon(
@@ -116,7 +117,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaContents(
-                    images = contentImages
+                    images = viewModel.contents.map { it.image }
                 )
 
                 WatchaSubTitleRow(
@@ -133,7 +134,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaContents(
-                    images = contentImages
+                    images = viewModel.contents.map { it.image }
                 )
 
                 WatchaSemiTitle(
@@ -146,7 +147,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaPartyCards(
-                    items = partyImages,
+                    items = viewModel.parties,
                     modifier = Modifier.padding(start = 19.dp)
                 )
 

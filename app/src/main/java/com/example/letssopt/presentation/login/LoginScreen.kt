@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
-import com.example.letssopt.common.util.isLoginValid
 import com.example.letssopt.designsystem.component.Button.WatchaButton
 import com.example.letssopt.designsystem.component.Text.WatchaFormField
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
@@ -110,9 +109,7 @@ fun LoginScreen(
             text = "로그인",
             modifier = Modifier.padding(bottom = 50.dp),
             onClick = {
-                val result = isLoginValid(
-                    viewModel.email.value,
-                    viewModel.password.value,
+                val result = viewModel.login(
                     savedEmail,
                     savedPassword
                 )

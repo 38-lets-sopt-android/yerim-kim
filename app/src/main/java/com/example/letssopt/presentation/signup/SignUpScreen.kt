@@ -19,14 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.R
-import com.example.letssopt.common.util.isSignUpValid
 import com.example.letssopt.designsystem.component.Button.WatchaButton
 import com.example.letssopt.designsystem.component.Text.WatchaFormField
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.presentation.signup.SignUpViewModel
 
 @Composable
 fun SignUpScreen(
@@ -109,11 +107,7 @@ fun SignUpScreen(
             text = "회원가입",
             modifier = Modifier.padding(bottom = 50.dp),
             onClick = {
-                val result = isSignUpValid(
-                    viewModel.email.value,
-                    viewModel.password.value,
-                    viewModel.passwordCheck.value
-                )
+                val result = viewModel.signUp()
 
                 Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
 

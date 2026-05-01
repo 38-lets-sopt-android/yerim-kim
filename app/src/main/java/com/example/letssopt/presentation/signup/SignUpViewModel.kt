@@ -2,6 +2,7 @@ package com.example.letssopt.presentation.signup
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.example.letssopt.common.util.isSignUpValid
 
 class SignUpViewModel : ViewModel() {
     var email = mutableStateOf("")
@@ -23,5 +24,13 @@ class SignUpViewModel : ViewModel() {
 
     fun updatePasswordCheck(input: String) {
         passwordCheck.value = input
+    }
+
+    fun signUp(): Int {
+        return isSignUpValid(
+            email.value,
+            password.value,
+            passwordCheck.value
+        )
     }
 }

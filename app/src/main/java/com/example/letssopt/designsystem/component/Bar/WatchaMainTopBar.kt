@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.letssopt.designsystem.component.Button.WatchaTopIconButton
+import com.example.letssopt.designsystem.theme.TextPrimary
 
 @Composable
 fun WatchaMainTopBar(
@@ -33,6 +34,7 @@ fun WatchaMainTopBar(
                 WatchaTopIconButton(
                     iconRes = icon,
                     onClick = { onIconClick(index) },
+                    color = TextPrimary,
                     modifier = Modifier.padding(end = 14.dp)
                 )
             }

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 fun WatchaTopIconButton(
     iconRes: Int,
     onClick: () -> Unit,
+    color: Color,
     modifier: Modifier = Modifier
 ) {
     IconButton(
@@ -23,7 +24,7 @@ fun WatchaTopIconButton(
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = null, // 설명 텍스트
-            tint = Color.Unspecified
+            tint = color
         )
     }
 }

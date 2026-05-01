@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Banner.WatchaBanner
 import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
@@ -31,20 +33,44 @@ import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
+import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.TextPrimary
+import com.example.letssopt.presentation.navigation.Category
+import com.example.letssopt.presentation.navigation.Folder
+import com.example.letssopt.presentation.navigation.Main
+import com.example.letssopt.presentation.navigation.Search
+import com.example.letssopt.presentation.navigation.Webtoon
 
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
+    navController: NavController,
     viewModel: MainViewModel = viewModel()
 ) {
+    val navBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry.value?.destination?.route
+    val currentTab = routeToTab(currentRoute)
+
     Scaffold(
         bottomBar = {
             WatchaBottomBar(
                 items = icons,
-                onItemClick = { }
+                selectedTab = currentTab,
+                onItemClick = { tab ->
+                    if (tab != currentTab) {
+                        navController.navigate(
+                            when (tab) {
+                                BottomBarTab.MAIN -> Main
+                                BottomBarTab.CATEGORY -> Category
+                                BottomBarTab.WEBTOON -> Webtoon
+                                BottomBarTab.SEARCH -> Search
+                                BottomBarTab.FOLDER -> Folder
+                            }
+                        )
+                    }
+                }
             )
         }
     ) { innerPadding ->

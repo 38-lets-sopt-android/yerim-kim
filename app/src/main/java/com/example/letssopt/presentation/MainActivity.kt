@@ -12,12 +12,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.letssopt.common.util.AuthPreference
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.presentation.category.CategoryScreen
+import com.example.letssopt.presentation.folder.FolderScreen
 import com.example.letssopt.presentation.login.LoginScreen
 import com.example.letssopt.presentation.main.MainScreen
+import com.example.letssopt.presentation.navigation.Category
+import com.example.letssopt.presentation.navigation.Folder
 import com.example.letssopt.presentation.navigation.Login
 import com.example.letssopt.presentation.navigation.Main
+import com.example.letssopt.presentation.navigation.Search
 import com.example.letssopt.presentation.navigation.SignUp
+import com.example.letssopt.presentation.navigation.Webtoon
+import com.example.letssopt.presentation.search.SearchScreen
 import com.example.letssopt.presentation.signup.SignUpScreen
+import com.example.letssopt.presentation.webtoon.WebtoonScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,10 +92,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable<Main> {
-                            MainScreen(
-                            )
-                        }
+                        composable<Main> { MainScreen(navController = navController) }
+                        composable<Category> { CategoryScreen(navController = navController) }
+                        composable<Webtoon> { WebtoonScreen(navController = navController) }
+                        composable<Search> { SearchScreen(navController = navController) }
+                        composable<Folder> { FolderScreen(navController = navController) }
                     }
                 }
             }

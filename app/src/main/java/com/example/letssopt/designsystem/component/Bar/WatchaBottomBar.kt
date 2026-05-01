@@ -22,16 +22,18 @@ import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.Disabled
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.designsystem.theme.TextPrimary
 
 @Composable
 fun WatchaBottomBar(
     items: List<BottomBarTab>,
-    onItemClick: (Int) -> Unit,
+    selectedTab: BottomBarTab,
+    onItemClick: (BottomBarTab) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BottomAppBar(
         containerColor = Background,
-        contentColor = Background,
+        contentColor = TextPrimary,
         modifier = modifier
             .fillMaxWidth()
             .background(Background)
@@ -40,22 +42,27 @@ fun WatchaBottomBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Background),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items.forEachIndexed { index, item ->
+            items.forEach { item ->
+                val isSelected = item == selectedTab
+
                 Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.weight(1f)
                 ) {
                     WatchaTopIconButton(
                         iconRes = item.icon,
-                        onClick = { onItemClick(index) }
+                        onClick = { onItemClick(item) },
+                        color = if (isSelected) TextPrimary else Disabled
                     )
+
                     Text(
-                        text = BottomBarTab.MAIN.label,
+                        text = item.label,
                         fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                         fontWeight = FontWeight(400),
-                        color = Disabled,
+                        color = if (isSelected) TextPrimary else Disabled,
                         fontSize = 10.sp
                     )
                 }
@@ -71,7 +78,8 @@ private fun WatchaBottomBarPreview() {
     LETSSOPTTheme {
         WatchaBottomBar(
             items = icons,
-            onItemClick = {_ ->},
+            selectedTab = BottomBarTab.MAIN,
+            onItemClick = {},
             modifier = Modifier.fillMaxWidth()
         )
     }

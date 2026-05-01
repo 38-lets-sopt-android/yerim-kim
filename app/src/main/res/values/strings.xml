@@ -2,6 +2,7 @@
     <string name="app_name">LETSSOPT</string>
     <string name="title_activity_login">loginActivity</string>
     <string name="title_activity_signup">SignUpActivity</string>
+    <string name="title_activity_folder">FolderActivity</string>
 
     <string name="empty_login">회원가입을 해주세요.</string>
     <string name="succeed_login">로그인에 성공했습니다.</string>

@@ -1,4 +1,4 @@
-package com.example.letssopt.designsystem.component
+package com.example.letssopt.designsystem.component.Button
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
 import com.example.letssopt.designsystem.theme.PrimaryRed
 import com.example.letssopt.designsystem.theme.TextPrimary
 
@@ -32,7 +33,7 @@ fun WatchaButton(
     ) {
         Text(
             text = text,
-            fontFamily = FontFamily(Font(com.example.letssopt.R.font.pretendard_bold)),
+            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             color = TextPrimary

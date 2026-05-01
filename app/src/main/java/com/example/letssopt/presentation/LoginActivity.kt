@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,24 +28,40 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.common.util.isLoginValid
-import com.example.letssopt.designsystem.component.WatchaButton
-import com.example.letssopt.designsystem.component.WatchaFormField
-import com.example.letssopt.designsystem.component.WatchaTextField
+import com.example.letssopt.designsystem.component.Button.WatchaButton
+import com.example.letssopt.designsystem.component.Text.WatchaFormField
+import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
+import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.designsystem.theme.TextPrimary
 import com.example.letssopt.designsystem.theme.TextSecondary
+import com.example.letssopt.presentation.viewmodel.LoginViewModel
 
 class LoginActivity : ComponentActivity() {
+    private val viewModel: LoginViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val sharedPreferences = getSharedPreferences("login_preferences", MODE_PRIVATE)
+
+        if (sharedPreferences.getBoolean("auto_login", false)) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
+
         setContent {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
+                        email = viewModel.email.value,
+                        password = viewModel.password.value,
+                        onEmailChange = viewModel::updateEmail,
+                        onPasswordChange = viewModel::updatePassword,
                         savedEmail = intent.getStringExtra("email"),
                         savedPassword = intent.getStringExtra("password"),
                         toSignUp = {
@@ -56,6 +69,10 @@ class LoginActivity : ComponentActivity() {
                             startActivity(intent)
                         },
                         toMain = {
+                            sharedPreferences.edit()
+                                .putBoolean("auto_login", true)
+                                .apply()
+
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                         }
@@ -69,13 +86,15 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    email: String,
+    password: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     savedEmail: String?,
     savedPassword: String?,
     toSignUp: () -> Unit,
     toMain: () -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     Column(
@@ -96,12 +115,8 @@ fun LoginScreen(
                 .padding(top = 60.dp)
         )
 
-        Text(
+        WatchaSemiTitle(
             text = "이메일로 로그인",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = TextPrimary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 60.dp)
@@ -116,7 +131,7 @@ fun LoginScreen(
 
         WatchaTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = onEmailChange,
             placeholder = "이메일 주소를 입력하세요",
         )
 
@@ -129,7 +144,7 @@ fun LoginScreen(
 
         WatchaTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = onPasswordChange,
             placeholder = "비밀번호를 입력하세요",
             isPassword = true
         )
@@ -167,7 +182,12 @@ fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     LETSSOPTTheme {
-        LoginScreen(savedEmail = "email",
+        LoginScreen(
+            email = "test@email.com",
+            password = "12345678",
+            onEmailChange = {},
+            onPasswordChange = {},
+            savedEmail = "email",
             savedPassword = "password",
             toSignUp = {},
             toMain = {}

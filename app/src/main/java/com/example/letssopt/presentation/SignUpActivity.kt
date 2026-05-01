@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,10 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,15 +27,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.common.util.isSignUpValid
-import com.example.letssopt.designsystem.component.WatchaButton
-import com.example.letssopt.designsystem.component.WatchaFormField
-import com.example.letssopt.designsystem.component.WatchaTextField
+import com.example.letssopt.designsystem.component.Button.WatchaButton
+import com.example.letssopt.designsystem.component.Text.WatchaFormField
+import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
+import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
-import com.example.letssopt.designsystem.theme.TextPrimary
+import com.example.letssopt.presentation.viewmodel.SignUpViewModel
 
 class SignUpActivity : ComponentActivity() {
+    private val viewModel by viewModels<SignUpViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,6 +46,12 @@ class SignUpActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SignUpScreen(
                         modifier = Modifier.padding(innerPadding),
+                        email = viewModel.email.value,
+                        password = viewModel.password.value,
+                        passwordCheck = viewModel.passwordCheck.value,
+                        onEmailChange = viewModel::updateEmail,
+                        onPasswordChange = viewModel::updatePassword,
+                        onPasswordCheckChange = viewModel::updatePasswordCheck,
                         onSignUpSuccess = { email, password ->
                             val intent = Intent(this, LoginActivity::class.java).apply {
                                 putExtra("email", email)
@@ -63,11 +68,14 @@ class SignUpActivity : ComponentActivity() {
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
+    email: String,
+    password: String,
+    passwordCheck: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onPasswordCheckChange: (String) -> Unit,
      onSignUpSuccess: (String, String) -> Unit
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordCheck by remember { mutableStateOf("") }
     val context = LocalContext.current
 
     Column(
@@ -88,12 +96,8 @@ fun SignUpScreen(
                 .padding(top = 60.dp)
         )
 
-        Text(
+        WatchaSemiTitle(
             text = "회원가입",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            fontSize = 20.sp,
-            color = TextPrimary,
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 60.dp)
@@ -108,7 +112,7 @@ fun SignUpScreen(
 
         WatchaTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = onEmailChange,
             placeholder = "이메일 주소를 입력하세요",
         )
 
@@ -121,7 +125,7 @@ fun SignUpScreen(
 
         WatchaTextField(
             value = password,
-            onValueChange = { password = it },
+            onValueChange = onPasswordChange,
             placeholder = "비밀번호를 입력하세요",
             isPassword = true
         )
@@ -135,7 +139,7 @@ fun SignUpScreen(
 
         WatchaTextField(
             value = passwordCheck,
-            onValueChange = { passwordCheck = it },
+            onValueChange = onPasswordCheckChange,
             placeholder = "비밀번호를 다시 입력하세요",
             isPassword = true
         )
@@ -163,6 +167,12 @@ fun SignUpScreen(
 private fun SignUpScreenPreview() {
     LETSSOPTTheme {
         SignUpScreen(
+            email = "test@email.com",
+            password = "12345678",
+            passwordCheck = "12345678",
+            onEmailChange = {},
+            onPasswordChange = {},
+            onPasswordCheckChange = {},
             onSignUpSuccess = { _, _ -> }
         )
     }

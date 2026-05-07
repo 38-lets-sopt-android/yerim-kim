@@ -28,6 +28,7 @@ import com.example.letssopt.presentation.navigation.Folder
 import com.example.letssopt.presentation.navigation.Main
 import com.example.letssopt.presentation.navigation.Search
 import com.example.letssopt.presentation.navigation.Webtoon
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun FolderScreen(
@@ -41,7 +42,7 @@ fun FolderScreen(
     Scaffold(
         bottomBar = {
             WatchaBottomBar(
-                items = icons,
+                items = icons.toImmutableList(),
                 selectedTab = currentTab,
                 onItemClick = { tab ->
                     if (tab != currentTab) {

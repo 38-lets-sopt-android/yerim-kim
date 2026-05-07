@@ -23,10 +23,12 @@ import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.Disabled
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.TextPrimary
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun WatchaBottomBar(
-    items: List<BottomBarTab>,
+    items: ImmutableList<BottomBarTab>,
     selectedTab: BottomBarTab,
     onItemClick: (BottomBarTab) -> Unit,
     modifier: Modifier = Modifier
@@ -46,28 +48,41 @@ fun WatchaBottomBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items.forEach { item ->
-                val isSelected = item == selectedTab
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+                WatchaBottomBarItem(
+                    item = item,
+                    isSelected = item == selectedTab,
+                    onClick = { onItemClick(item) },
                     modifier = Modifier.weight(1f)
-                ) {
-                    WatchaTopIconButton(
-                        iconRes = item.icon,
-                        onClick = { onItemClick(item) },
-                        color = if (isSelected) TextPrimary else Disabled
-                    )
-
-                    Text(
-                        text = item.label,
-                        fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                        fontWeight = FontWeight(400),
-                        color = if (isSelected) TextPrimary else Disabled,
-                        fontSize = 10.sp
-                    )
-                }
+                )
             }
         }
+    }
+}
+
+@Composable
+private fun WatchaBottomBarItem(
+    item: BottomBarTab,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        WatchaTopIconButton(
+            iconRes = item.icon,
+            onClick = onClick,
+            color = if (isSelected) TextPrimary else Disabled
+        )
+
+        Text(
+            text = item.label,
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontWeight = FontWeight(400),
+            color = if (isSelected) TextPrimary else Disabled,
+            fontSize = 10.sp
+        )
     }
 }
 
@@ -77,7 +92,7 @@ fun WatchaBottomBar(
 private fun WatchaBottomBarPreview() {
     LETSSOPTTheme {
         WatchaBottomBar(
-            items = icons,
+            items = icons.toImmutableList(),
             selectedTab = BottomBarTab.MAIN,
             onItemClick = {},
             modifier = Modifier.fillMaxWidth()

@@ -83,7 +83,7 @@ fun FolderScreen(
                 )
 
                 WatchaFolders(
-                    items = FolderImages
+                    items = FolderImages.toImmutableList()
                 )
             }
         }

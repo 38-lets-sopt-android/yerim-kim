@@ -20,11 +20,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Banner.WatchaBanner
 import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
@@ -36,6 +38,7 @@ import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
 import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.TextPrimary
 import com.example.letssopt.presentation.navigation.Category
 import com.example.letssopt.presentation.navigation.Folder
@@ -185,10 +188,12 @@ fun MainScreen(
 
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun MainScreenPreview() {
-//    LETSSOPTTheme {
-//        MainScreen()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+private fun MainScreenPreview() {
+    LETSSOPTTheme {
+        MainScreen(
+            navController = rememberNavController()
+        )
+    }
+}

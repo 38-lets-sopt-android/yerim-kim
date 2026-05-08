@@ -32,14 +32,14 @@ fun isSignUpValid(
 }
 
 fun isLoginValid(
-    email: String,
-    password: String,
-    savedEmail: String?,
-    savedPassword: String?
+    id: String,
+    password: String
 ): Int {
     return when {
-        savedEmail == null || savedPassword == null -> R.string.empty_login
-        email == savedEmail && password == savedPassword -> R.string.succeed_login
-        else -> R.string.fail_login
+
+        id.isBlank() || password.isBlank() -> R.string.empty_login
+        password.length < 8 -> R.string.password_too_short
+        password.length > 12 -> R.string.password_too_long
+        else -> R.string.succeed_login
     }
 }

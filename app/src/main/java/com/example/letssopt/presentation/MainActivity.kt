@@ -38,12 +38,11 @@ class MainActivity : ComponentActivity() {
             LETSSOPTTheme {
                 val navController = rememberNavController()
 
-//                val startDestination = if (authPreference.isLoggedIn()) {
-//                    Main
-//                } else {
-//                    Login
-//                }
-                val startDestination = Login
+                val startDestination = if (authPreference.isLoggedIn()) {
+                    Main
+                } else {
+                    Login
+                }
 
                 @Suppress("UnusedMaterial3ScaffoldPaddingParameter") // innerPadding 안 쓰려고... 
                 Scaffold(

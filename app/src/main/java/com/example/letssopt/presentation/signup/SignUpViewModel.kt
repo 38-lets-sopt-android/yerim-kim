@@ -5,32 +5,61 @@ import androidx.lifecycle.ViewModel
 import com.example.letssopt.common.util.isSignUpValid
 
 class SignUpViewModel : ViewModel() {
-    var email = mutableStateOf("")
+
+    var userId = mutableStateOf("")
         private set
 
-    var password = mutableStateOf("")
+    var userPassword = mutableStateOf("")
         private set
 
-    var passwordCheck = mutableStateOf("")
+    var userPasswordCheck = mutableStateOf("")
         private set
 
-    fun updateEmail(input: String) {
-        email.value = input
+    var userName = mutableStateOf("")
+        private set
+
+    var userEmail = mutableStateOf("")
+        private set
+
+    var userAge = mutableStateOf("")
+        private set
+
+    var userPart = mutableStateOf("")
+        private set
+
+    fun updateId(input: String) {
+        userId.value = input
     }
 
     fun updatePassword(input: String) {
-        password.value = input
+        userPassword.value = input
     }
 
     fun updatePasswordCheck(input: String) {
-        passwordCheck.value = input
+        userPasswordCheck.value = input
+    }
+
+    fun updateName(input: String) {
+        userName.value = input
+    }
+
+    fun updateEmail(input: String) {
+        userEmail.value = input
+    }
+
+    fun updateAge(input: String) {
+        userAge.value = input
+    }
+
+    fun updatePart(input: String) {
+        userPart.value = input
     }
 
     fun signUp(): Int {
         return isSignUpValid(
-            email.value,
-            password.value,
-            passwordCheck.value
+            userEmail.value,
+            userPassword.value,
+            userPasswordCheck.value
         )
     }
 }

@@ -9,8 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -35,8 +39,49 @@ fun SignUpScreen(
     modifier: Modifier = Modifier,
     onSignUpSuccess: (String, String) -> Unit,
     viewModel: SignUpViewModel = viewModel()
-) {
+)  {
+    val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+
+    LaunchedEffect(uiState) {
+        when (val state = uiState) {
+            is SignUpViewModel.SignUpUiState.Success -> {
+                Toast.makeText(
+                    context,
+                    "회원가입 성공",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                onSignUpSuccess(
+                    viewModel.userEmail.value,
+                    viewModel.userPassword.value
+                )
+
+                viewModel.resetState()
+            }
+
+            is SignUpViewModel.SignUpUiState.Error -> {
+                Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.resetState()
+            }
+
+            is SignUpViewModel.SignUpUiState.ErrorInput -> {
+                Toast.makeText(
+                    context,
+                    context.getString(state.message),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.resetState()
+            }
+
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
@@ -160,25 +205,27 @@ fun SignUpScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        WatchaButton(
-            text = "회원가입",
-            modifier = Modifier.padding(
-                top = 50.dp,
-                bottom = 100.dp
-            ),
-            onClick = {
-                val result = viewModel.signUp()
-
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
-
-                if (result == R.string.succeed_signup) {
-                    onSignUpSuccess(
+        if (uiState is SignUpViewModel.SignUpUiState.Loading) {
+            CircularProgressIndicator()
+        } else {
+            WatchaButton(
+                text = "회원가입",
+                modifier = Modifier.padding(
+                    top = 50.dp,
+                    bottom = 100.dp
+                ),
+                onClick = {
+                    viewModel.signUp(
+                        viewModel.userId.value,
+                        viewModel.userPassword.value,
+                        viewModel.userName.value,
                         viewModel.userEmail.value,
-                        viewModel.userPassword.value
+                        viewModel.userAge.value,
+                        viewModel.userPart.value
                     )
                 }
-            }
-        )
+            )
+        }
     }
 }
 

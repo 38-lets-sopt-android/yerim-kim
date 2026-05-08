@@ -14,11 +14,12 @@ import com.example.letssopt.R
 import com.example.letssopt.designsystem.data.ForderItem
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun WatchaFolders(
-    items: List<ForderItem>,
-    modifier: Modifier
+    items: ImmutableList<ForderItem>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -41,7 +42,6 @@ fun WatchaFolders(
 @Composable
 private fun WatchaFoldersPreview() {
     LETSSOPTTheme {
-
         val dummyItems = listOf(
             ForderItem(
                 image = R.drawable.img_content1,
@@ -59,11 +59,10 @@ private fun WatchaFoldersPreview() {
                 image = R.drawable.img_content1,
                 icon = R.drawable.ic_party_notice_35
             )
-        )
+        ).toImmutableList()
 
         WatchaFolders(
-            items = dummyItems,
-            modifier = Modifier
+            items = dummyItems
         )
     }
 }

@@ -4,183 +4,102 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.letssopt.R
-import com.example.letssopt.designsystem.component.Banner.WatchaBanner
-import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
-import com.example.letssopt.designsystem.component.Bar.WatchaMainTopBar
-import com.example.letssopt.designsystem.component.Content.WatchaContents
-import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
-import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
-import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
-import com.example.letssopt.designsystem.data.bannerImages
-import com.example.letssopt.designsystem.data.contentImages
-import com.example.letssopt.designsystem.data.icons
-import com.example.letssopt.designsystem.data.partyImages
-import com.example.letssopt.designsystem.theme.Background
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.letssopt.common.util.AuthPreference
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
-import com.example.letssopt.designsystem.theme.TextPrimary
+import com.example.letssopt.presentation.category.CategoryScreen
+import com.example.letssopt.presentation.folder.FolderScreen
+import com.example.letssopt.presentation.login.LoginScreen
+import com.example.letssopt.presentation.main.MainScreen
+import com.example.letssopt.presentation.navigation.Category
+import com.example.letssopt.presentation.navigation.Folder
+import com.example.letssopt.presentation.navigation.Login
+import com.example.letssopt.presentation.navigation.Main
+import com.example.letssopt.presentation.navigation.Search
+import com.example.letssopt.presentation.navigation.SignUp
+import com.example.letssopt.presentation.navigation.Webtoon
+import com.example.letssopt.presentation.search.SearchScreen
+import com.example.letssopt.presentation.signup.SignUpScreen
+import com.example.letssopt.presentation.webtoon.WebtoonScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val authPreference = AuthPreference(this)
+
         setContent {
             LETSSOPTTheme {
-                    MainScreen(
-                        modifier = Modifier
-                    )
+                val navController = rememberNavController()
+
+                val startDestination = if (authPreference.isLoggedIn()) {
+                    Main
+                } else {
+                    Login
+                }
+
+                @Suppress("UnusedMaterial3ScaffoldPaddingParameter") // innerPadding 안 쓰려고... 
+                Scaffold(
+                    modifier = Modifier.fillMaxSize()
+                ) { _->
+                    NavHost(
+                        navController = navController,
+                        startDestination = startDestination
+
+                    ) {
+                        composable<Login> {
+                            LoginScreen(
+                                savedEmail = navController.currentBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.get<String>("email"),
+                                savedPassword = navController.currentBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.get<String>("password"),
+                                toSignUp = {
+                                    navController.navigate(SignUp)
+                                },
+                                toMain = {
+                                    authPreference.setLoggedIn(true)
+
+                                    navController.navigate(Main) {
+                                        popUpTo<Login> {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
+                            )
+                        }
+
+                        composable<SignUp> {
+                            SignUpScreen(
+                                onSignUpSuccess = { email, password ->
+                                    navController.previousBackStackEntry
+                                        ?.savedStateHandle
+                                        ?.set("email", email)
+
+                                    navController.previousBackStackEntry
+                                        ?.savedStateHandle
+                                        ?.set("password", password)
+
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+
+                        composable<Main> { MainScreen(navController = navController) }
+                        composable<Category> { CategoryScreen(navController = navController) }
+                        composable<Webtoon> { WebtoonScreen(navController = navController) }
+                        composable<Search> { SearchScreen(navController = navController) }
+                        composable<Folder> { FolderScreen(navController = navController) }
+                    }
+                }
             }
         }
-    }
-}
-
-@Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    Scaffold(
-        bottomBar = {
-            WatchaBottomBar(
-                items = icons,
-                onItemClick = { }
-            )
-        }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Background)
-                    .padding(top = 10.dp)
-                    .verticalScroll(rememberScrollState()), // 스크롤
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top
-            ) {
-                WatchaMainTopBar(
-                    icons = listOf(
-                        R.drawable.ic_top_watch_24,
-                        R.drawable.ic_top_notice_24,
-                        R.drawable.ic_top_profile_24
-                    ),
-                    onIconClick = { index -> },
-                    modifier = Modifier
-                        .align(Alignment.End)
-                )
-
-                WatchaSemiTitle(
-                    text = "방금 막 도착한 신상 컨텐츠",
-                    modifier = Modifier.padding(start = 19.dp)
-                )
-
-                Text(
-                    text = "예능부터 드라마까지!",
-                    fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                    fontWeight = FontWeight(600),
-                    fontSize = 18.sp,
-                    color = Color(0xFFBABAC1),
-                    modifier = modifier.padding(
-                        start = 19.dp,
-                        bottom = 20.dp
-                    )
-                )
-
-                WatchaBanner(
-                    images = bannerImages
-                )
-
-                Icon(
-                    painter = painterResource(id = R.drawable.img_watgorism),
-                    contentDescription = null,
-                    tint = Color.Unspecified,
-                    modifier = Modifier.padding(
-                        start = 19.dp,
-                        top = 20.dp,
-                        bottom = 5.dp
-                    )
-                )
-
-                WatchaSubTitleRow(
-                    text = "예능부터 드라마까지!",
-                    moreInfo = "더보기",
-                    color = Color(0xFFBABAC1),
-                    modifier = modifier.padding(
-                        start = 19.dp,
-                        bottom = 10.dp,
-                        end = 19.dp
-                    )
-                )
-
-                WatchaContents(
-                    images = contentImages
-                )
-
-                WatchaSubTitleRow(
-                    text = "공개 예정 콘텐츠",
-                    moreInfo = "더보기",
-                    color = TextPrimary,
-                    modifier = modifier.padding(
-                        top = 20.dp,
-                        bottom = 10.dp,
-                        start = 19.dp,
-                        end = 19.dp
-                    )
-                        .align(Alignment.CenterHorizontally)
-                )
-
-                WatchaContents(
-                    images = contentImages
-                )
-
-                WatchaSemiTitle(
-                    text = "왓챠 파티",
-                    modifier = modifier.padding(
-                        start = 19.dp,
-                        top = 20.dp,
-                        bottom = 10.dp
-                    )
-                )
-
-                WatchaPartyCards(
-                    items = partyImages,
-                    modifier = Modifier.padding(start = 19.dp)
-                )
-
-                Spacer(modifier = Modifier.height(0.dp))
-            }
-        }
-    }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun MainScreenPreview() {
-    LETSSOPTTheme {
-        MainScreen()
     }
 }

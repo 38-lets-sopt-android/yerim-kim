@@ -17,21 +17,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.component.Button.WatchaTopIconButton
-import com.example.letssopt.designsystem.data.BottomBarIcon
+import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.Disabled
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import com.example.letssopt.designsystem.theme.TextPrimary
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun WatchaBottomBar(
-    items: List<BottomBarIcon>,
-    onItemClick: (Int) -> Unit,
+    items: ImmutableList<BottomBarTab>,
+    selectedTab: BottomBarTab,
+    onItemClick: (BottomBarTab) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BottomAppBar(
         containerColor = Background,
-        contentColor = Background,
+        contentColor = TextPrimary,
         modifier = modifier
             .fillMaxWidth()
             .background(Background)
@@ -40,27 +44,45 @@ fun WatchaBottomBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Background),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items.forEachIndexed { index, item ->
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    WatchaTopIconButton(
-                        iconRes = item.icon,
-                        onClick = { onItemClick(index) }
-                    )
-                    Text(
-                        text = item.text,
-                        fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                        fontWeight = FontWeight(400),
-                        color = Disabled,
-                        fontSize = 10.sp
-                    )
-                }
+            items.forEach { item ->
+                WatchaBottomBarItem(
+                    item = item,
+                    isSelected = item == selectedTab,
+                    onClick = { onItemClick(item) },
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
+    }
+}
+
+@Composable
+private fun WatchaBottomBarItem(
+    item: BottomBarTab,
+    isSelected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        WatchaTopIconButton(
+            iconRes = item.icon,
+            onClick = onClick,
+            color = if (isSelected) TextPrimary else Disabled
+        )
+
+        Text(
+            text = item.label,
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontWeight = FontWeight(400),
+            color = if (isSelected) TextPrimary else Disabled,
+            fontSize = 10.sp
+        )
     }
 }
 
@@ -70,8 +92,9 @@ fun WatchaBottomBar(
 private fun WatchaBottomBarPreview() {
     LETSSOPTTheme {
         WatchaBottomBar(
-            items = icons,
-            onItemClick = {_ ->},
+            items = icons.toImmutableList(),
+            selectedTab = BottomBarTab.MAIN,
+            onItemClick = {},
             modifier = Modifier.fillMaxWidth()
         )
     }

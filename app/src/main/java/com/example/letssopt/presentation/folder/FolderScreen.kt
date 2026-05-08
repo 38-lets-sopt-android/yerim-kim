@@ -1,9 +1,5 @@
-package com.example.letssopt.presentation
+package com.example.letssopt.presentation.folder
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,37 +12,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.letssopt.designsystem.component.Bar.WatchaBottomBar
 import com.example.letssopt.designsystem.component.Folder.WatchaFolders
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
+import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.FolderImages
 import com.example.letssopt.designsystem.data.icons
 import com.example.letssopt.designsystem.theme.Background
-import com.example.letssopt.presentation.ui.theme.LETSSOPTTheme
-
-class FolderActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            LETSSOPTTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    FolderScreen(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
+import com.example.letssopt.presentation.main.routeToTab
+import com.example.letssopt.presentation.navigation.Category
+import com.example.letssopt.presentation.navigation.Folder
+import com.example.letssopt.presentation.navigation.Main
+import com.example.letssopt.presentation.navigation.Search
+import com.example.letssopt.presentation.navigation.Webtoon
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
-fun FolderScreen(modifier: Modifier = Modifier) {
+fun FolderScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
+    val navBackStackEntry = navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry.value?.destination?.route
+    val currentTab = routeToTab(currentRoute)
+
     Scaffold(
         bottomBar = {
             WatchaBottomBar(
-                items = icons,
-                onItemClick = { }
+                items = icons.toImmutableList(),
+                selectedTab = currentTab,
+                onItemClick = { tab ->
+                    if (tab != currentTab) {
+                        navController.navigate(
+                            tab.route
+                        )
+                    }
+                }
             )
         }
     ) { innerPadding ->
@@ -73,8 +77,7 @@ fun FolderScreen(modifier: Modifier = Modifier) {
                 )
 
                 WatchaFolders(
-                    items = FolderImages,
-                    modifier = Modifier
+                    items = FolderImages.toImmutableList()
                 )
             }
         }
@@ -83,8 +86,6 @@ fun FolderScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun FolderScreenPreview() {
-    LETSSOPTTheme {
-        FolderScreen()
-    }
+private fun FolderScreenPreview() {
+    FolderScreen(navController = rememberNavController())
 }

@@ -16,13 +16,14 @@ import androidx.compose.ui.unit.dp
 import com.example.letssopt.R
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 @Composable
 fun WatchaContents(
-    images: List<Int>,
+    images: ImmutableList<Int>,
     modifier: Modifier = Modifier
 ) {
-
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(20.dp),
         modifier = modifier
@@ -49,7 +50,7 @@ private fun WatchaContentsPreview() {
                 R.drawable.img_content1,
                 R.drawable.img_content2,
                 R.drawable.img_content3
-            ),
+            ).toImmutableList(),
             modifier = Modifier.padding(16.dp)
         )
     }

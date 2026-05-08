@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,30 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LETSSOPT">
         <activity
-            android:name=".presentation.FolderActivity"
-            android:exported="false"
-            android:label="@string/title_activity_folder"
-            android:theme="@style/Theme.LETSSOPT" />
-        <activity
-            android:name=".presentation.SignUpActivity"
-            android:exported="false"
-            android:label="SignUpActivity"
-            android:theme="@style/Theme.LETSSOPT" />
-        <activity
-            android:name=".presentation.LoginActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
-            android:label="LoginActivity"
+            android:label="MainActivity"
             android:theme="@style/Theme.LETSSOPT">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        </activity>
-        <activity
-            android:name=".presentation.MainActivity"
-            android:exported="false"
-            android:label="MainActivity"
-            android:theme="@style/Theme.LETSSOPT">
         </activity>
     </application>
 

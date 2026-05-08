@@ -22,6 +22,8 @@ fun isSignUpValid(
     return when {
         email.isEmpty() || password.isEmpty() || passwordCheck.isEmpty() ||
             id.isEmpty() || name.isEmpty() || part.isEmpty() -> R.string.empty_signup
+        id.length < 4 -> R.string.id_too_short
+        id.length > 20 -> R.string.id_too_long
         password.length < 8 -> R.string.password_too_short
         password.length > 12 -> R.string.password_too_long
         passwordCheck != password -> R.string.password_mismatch

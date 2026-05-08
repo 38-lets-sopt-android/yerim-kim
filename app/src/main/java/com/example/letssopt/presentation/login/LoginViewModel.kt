@@ -5,14 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.example.letssopt.common.util.isLoginValid
 
 class LoginViewModel : ViewModel() {
-    var email = mutableStateOf("")
+    var id = mutableStateOf("")
         private set
 
     var password = mutableStateOf("")
         private set
 
-    fun updateEmail(input: String) {
-        email.value = input
+    fun updateId(input: String) {
+        id.value = input
     }
 
     fun updatePassword(input: String) {
@@ -24,7 +24,7 @@ class LoginViewModel : ViewModel() {
         savedPassword: String?
     ): Int {
         return isLoginValid(
-            email.value,
+            id.value,
             password.value,
             savedEmail,
             savedPassword

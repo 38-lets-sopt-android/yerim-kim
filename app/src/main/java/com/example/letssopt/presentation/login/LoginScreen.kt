@@ -68,16 +68,16 @@ fun LoginScreen(
         )
 
         WatchaFormField(
-            text = "이메일",
+            text = "아이디",
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
 
         WatchaTextField(
-            value = viewModel.email.value,
-            onValueChange = viewModel::updateEmail,
-            placeholder = "이메일 주소를 입력하세요",
+            value = viewModel.id.value,
+            onValueChange = viewModel::updateId,
+            placeholder = "아이디를 입력하세요",
         )
 
         WatchaFormField(

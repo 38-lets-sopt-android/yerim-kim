@@ -47,13 +47,7 @@ fun FolderScreen(
                 onItemClick = { tab ->
                     if (tab != currentTab) {
                         navController.navigate(
-                            when (tab) {
-                                BottomBarTab.MAIN -> Main
-                                BottomBarTab.CATEGORY -> Category
-                                BottomBarTab.WEBTOON -> Webtoon
-                                BottomBarTab.SEARCH -> Search
-                                BottomBarTab.FOLDER -> Folder
-                            }
+                            tab.route
                         )
                     }
                 }

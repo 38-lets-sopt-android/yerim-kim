@@ -35,16 +35,11 @@ import com.example.letssopt.designsystem.component.Content.WatchaContents
 import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
-import com.example.letssopt.designsystem.data.BottomBarTab
 import com.example.letssopt.designsystem.data.icons
+import com.example.letssopt.designsystem.data.routeToTab
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.TextPrimary
-import com.example.letssopt.presentation.navigation.Category
-import com.example.letssopt.presentation.navigation.Folder
-import com.example.letssopt.presentation.navigation.Main
-import com.example.letssopt.presentation.navigation.Search
-import com.example.letssopt.presentation.navigation.Webtoon
 import kotlinx.collections.immutable.toImmutableList
 
 @Composable
@@ -65,13 +60,7 @@ fun MainScreen(
                 onItemClick = { tab ->
                     if (tab != currentTab) {
                         navController.navigate(
-                            when (tab) {
-                                BottomBarTab.MAIN -> Main
-                                BottomBarTab.CATEGORY -> Category
-                                BottomBarTab.WEBTOON -> Webtoon
-                                BottomBarTab.SEARCH -> Search
-                                BottomBarTab.FOLDER -> Folder
-                            }
+                            tab.route
                         )
                     }
                 }

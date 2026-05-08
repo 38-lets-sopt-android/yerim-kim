@@ -6,15 +6,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -24,6 +32,7 @@ import com.example.letssopt.designsystem.component.Text.WatchaFormField
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
 
 @Composable
@@ -31,14 +40,57 @@ fun SignUpScreen(
     modifier: Modifier = Modifier,
     onSignUpSuccess: (String, String) -> Unit,
     viewModel: SignUpViewModel = viewModel()
-) {
+)  {
+    val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+
+    LaunchedEffect(uiState) {
+        when (val state = uiState) {
+            is SignUpViewModel.SignUpUiState.Success -> {
+                Toast.makeText(
+                    context,
+                    "회원가입 성공",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                onSignUpSuccess(
+                    viewModel.userEmail.value,
+                    viewModel.userPassword.value
+                )
+
+                viewModel.resetState()
+            }
+
+            is SignUpViewModel.SignUpUiState.Error -> {
+                Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.resetState()
+            }
+
+            is SignUpViewModel.SignUpUiState.ErrorInput -> {
+                Toast.makeText(
+                    context,
+                    context.getString(state.message),
+                    Toast.LENGTH_SHORT
+                ).show()
+                viewModel.resetState()
+            }
+
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
             .background(Background)
             .padding(horizontal = 20.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .imePadding()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -60,16 +112,16 @@ fun SignUpScreen(
         )
 
         WatchaFormField(
-            text = "이메일",
+            text = "아이디",
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
 
         WatchaTextField(
-            value = viewModel.email.value,
-            onValueChange = viewModel::updateEmail,
-            placeholder = "이메일 주소를 입력하세요",
+            value = viewModel.userId.value,
+            onValueChange = viewModel::updateId,
+            placeholder = "아이디를 입력하세요",
         )
 
         WatchaFormField(
@@ -81,7 +133,7 @@ fun SignUpScreen(
 
 
         WatchaTextField(
-            value = viewModel.password.value,
+            value = viewModel.userPassword.value,
             onValueChange = viewModel::updatePassword,
             placeholder = "비밀번호를 입력하세요",
             isPassword = true
@@ -95,45 +147,96 @@ fun SignUpScreen(
         )
 
         WatchaTextField(
-            value = viewModel.passwordCheck.value,
+            value = viewModel.userPasswordCheck.value,
             onValueChange = viewModel::updatePasswordCheck,
             placeholder = "비밀번호를 다시 입력하세요",
             isPassword = true
         )
 
+        WatchaFormField(
+            text = "이름",
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 30.dp)
+        )
+
+        WatchaTextField(
+            value = viewModel.userName.value,
+            onValueChange = viewModel::updateName,
+            placeholder = "이름을 입력하세요",
+        )
+
+        WatchaFormField(
+            text = "이메일",
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 30.dp)
+        )
+
+        WatchaTextField(
+            value = viewModel.userEmail.value,
+            onValueChange = viewModel::updateEmail,
+            placeholder = "이메일 주소를 입력하세요",
+        )
+
+        WatchaFormField(
+            text = "나이",
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 30.dp)
+        )
+
+        WatchaTextField(
+            value = viewModel.userAge.value,
+            onValueChange = viewModel::updateAge,
+            placeholder = "나이를 입력하세요"
+        )
+
+        WatchaFormField(
+            text = "파트",
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 30.dp)
+        )
+
+        WatchaTextField(
+            value = viewModel.userPart.value,
+            onValueChange = viewModel::updatePart,
+            placeholder = "파트를 입력하세요."
+        )
+
         Spacer(modifier = Modifier.weight(1f))
 
-        WatchaButton(
-            text = "회원가입",
-            modifier = Modifier.padding(bottom = 50.dp),
-            onClick = {
-                val result = viewModel.signUp()
-
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
-
-                if (result == R.string.succeed_signup) {
-                    onSignUpSuccess(
-                        viewModel.email.value,
-                        viewModel.password.value
+        if (uiState is SignUpViewModel.SignUpUiState.Loading) {
+            CircularProgressIndicator()
+        } else {
+            WatchaButton(
+                text = "회원가입",
+                modifier = Modifier.padding(
+                    top = 50.dp,
+                    bottom = 100.dp
+                ),
+                onClick = {
+                    viewModel.signUp(
+                        viewModel.userId.value,
+                        viewModel.userPassword.value,
+                        viewModel.userName.value,
+                        viewModel.userEmail.value,
+                        viewModel.userAge.value,
+                        viewModel.userPart.value
                     )
                 }
-            }
-        )
+            )
+        }
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun SignUpScreenPreview() {
-//    LETSSOPTTheme {
-//        SignUpScreen(
-//            email = "test@email.com",
-//            password = "12345678",
-//            passwordCheck = "12345678",
-//            onEmailChange = {},
-//            onPasswordChange = {},
-//            onPasswordCheckChange = {},
-//            onSignUpSuccess = { _, _ -> }
-//        )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+private fun SignUpScreenPreview() {
+    LETSSOPTTheme {
+        SignUpScreen(
+            onSignUpSuccess = { _, _ -> }
+        )
+    }
+}

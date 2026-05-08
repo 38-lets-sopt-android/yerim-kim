@@ -10,12 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,6 +29,7 @@ import com.example.letssopt.designsystem.component.Text.WatchaFormField
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
 import com.example.letssopt.designsystem.theme.TextSecondary
 
@@ -32,13 +37,39 @@ import com.example.letssopt.designsystem.theme.TextSecondary
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    savedEmail: String?,
-    savedPassword: String?,
     toSignUp: () -> Unit,
     toMain: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState) {
+        when (val state = uiState) {
+            is LoginViewModel.LoginUiState.Success -> {
+                Toast.makeText(
+                    context,
+                    "로그인 성공",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                toMain()
+                viewModel.resetState()
+            }
+
+            is LoginViewModel.LoginUiState.Error -> {
+                Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.resetState()
+            }
+
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
@@ -66,16 +97,16 @@ fun LoginScreen(
         )
 
         WatchaFormField(
-            text = "이메일",
+            text = "아이디",
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(top = 30.dp)
         )
 
         WatchaTextField(
-            value = viewModel.email.value,
-            onValueChange = viewModel::updateEmail,
-            placeholder = "이메일 주소를 입력하세요",
+            value = viewModel.id.value,
+            onValueChange = viewModel::updateId,
+            placeholder = "아이디를 입력하세요",
         )
 
         WatchaFormField(
@@ -109,34 +140,21 @@ fun LoginScreen(
             text = "로그인",
             modifier = Modifier.padding(bottom = 50.dp),
             onClick = {
-                val result = viewModel.login(
-                    savedEmail,
-                    savedPassword
-                )
-
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
-
-                if (result == R.string.succeed_login) {
-                    toMain()
-                }
+                viewModel.login()
             }
         )
+
+        Spacer(modifier = Modifier.padding(bottom = 20.dp))
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun LoginScreenPreview() {
-//    LETSSOPTTheme {
-//        LoginScreen(
-//            email = "test@email.com",
-//            password = "12345678",
-//            onEmailChange = {},
-//            onPasswordChange = {},
-//            savedEmail = "email",
-//            savedPassword = "password",
-//            toSignUp = {},
-//            toMain = {}
-//        )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+private fun LoginScreenPreview() {
+    LETSSOPTTheme {
+        LoginScreen(
+            toSignUp = {},
+            toMain = {}
+        )
+    }
+}

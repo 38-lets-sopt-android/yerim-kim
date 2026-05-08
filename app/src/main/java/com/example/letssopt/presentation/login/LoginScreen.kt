@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,6 +26,7 @@ import com.example.letssopt.designsystem.component.Text.WatchaFormField
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaTextField
 import com.example.letssopt.designsystem.theme.Background
+import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.PrimaryRed
 import com.example.letssopt.designsystem.theme.TextSecondary
 
@@ -121,22 +123,20 @@ fun LoginScreen(
                 }
             }
         )
+
+        Spacer(modifier = Modifier.padding(bottom = 20.dp))
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun LoginScreenPreview() {
-//    LETSSOPTTheme {
-//        LoginScreen(
-//            email = "test@email.com",
-//            password = "12345678",
-//            onEmailChange = {},
-//            onPasswordChange = {},
-//            savedEmail = "email",
-//            savedPassword = "password",
-//            toSignUp = {},
-//            toMain = {}
-//        )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+private fun LoginScreenPreview() {
+    LETSSOPTTheme {
+        LoginScreen(
+            savedEmail = "email",
+            savedPassword = "password",
+            toSignUp = {},
+            toMain = {}
+        )
+    }
+}

@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -34,13 +37,39 @@ import com.example.letssopt.designsystem.theme.TextSecondary
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    savedEmail: String?,
-    savedPassword: String?,
     toSignUp: () -> Unit,
     toMain: () -> Unit,
     viewModel: LoginViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    LaunchedEffect(uiState) {
+        when (val state = uiState) {
+            is LoginViewModel.LoginUiState.Success -> {
+                Toast.makeText(
+                    context,
+                    "로그인 성공",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                toMain()
+                viewModel.resetState()
+            }
+
+            is LoginViewModel.LoginUiState.Error -> {
+                Toast.makeText(
+                    context,
+                    state.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                viewModel.resetState()
+            }
+
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
@@ -111,16 +140,7 @@ fun LoginScreen(
             text = "로그인",
             modifier = Modifier.padding(bottom = 50.dp),
             onClick = {
-                val result = viewModel.login(
-                    savedEmail,
-                    savedPassword
-                )
-
-                Toast.makeText(context, result, Toast.LENGTH_SHORT).show()
-
-                if (result == R.string.succeed_login) {
-                    toMain()
-                }
+                viewModel.login()
             }
         )
 
@@ -133,8 +153,6 @@ fun LoginScreen(
 private fun LoginScreenPreview() {
     LETSSOPTTheme {
         LoginScreen(
-            savedEmail = "email",
-            savedPassword = "password",
             toSignUp = {},
             toMain = {}
         )

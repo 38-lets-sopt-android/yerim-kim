@@ -38,11 +38,12 @@ class MainActivity : ComponentActivity() {
             LETSSOPTTheme {
                 val navController = rememberNavController()
 
-                val startDestination = if (authPreference.isLoggedIn()) {
-                    Main
-                } else {
-                    Login
-                }
+//                val startDestination = if (authPreference.isLoggedIn()) {
+//                    Main
+//                } else {
+//                    Login
+//                }
+                val startDestination = Login
 
                 @Suppress("UnusedMaterial3ScaffoldPaddingParameter") // innerPadding 안 쓰려고... 
                 Scaffold(
@@ -55,12 +56,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         composable<Login> {
                             LoginScreen(
-                                savedEmail = navController.currentBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.get<String>("email"),
-                                savedPassword = navController.currentBackStackEntry
-                                    ?.savedStateHandle
-                                    ?.get<String>("password"),
                                 toSignUp = {
                                     navController.navigate(SignUp)
                                 },

@@ -36,7 +36,6 @@ import com.example.letssopt.designsystem.component.Party.WatchaPartyCards
 import com.example.letssopt.designsystem.component.Text.WatchaSemiTitle
 import com.example.letssopt.designsystem.component.Text.WatchaSubTitleRow
 import com.example.letssopt.designsystem.data.icons
-import com.example.letssopt.designsystem.data.routeToTab
 import com.example.letssopt.designsystem.theme.Background
 import com.example.letssopt.designsystem.theme.LETSSOPTTheme
 import com.example.letssopt.designsystem.theme.TextPrimary

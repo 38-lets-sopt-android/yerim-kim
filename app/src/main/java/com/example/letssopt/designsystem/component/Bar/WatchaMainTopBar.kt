@@ -26,7 +26,7 @@ fun WatchaMainTopBar(
         contentAlignment = Alignment.TopEnd
     ) {
         Row(
-            modifier = modifier.padding(top = 10.dp),
+            modifier = Modifier.padding(top = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End
         ){

@@ -162,7 +162,10 @@ fun SignUpScreen(
 
         WatchaButton(
             text = "회원가입",
-            modifier = Modifier.padding(bottom = 50.dp),
+            modifier = Modifier.padding(
+                top = 50.dp,
+                bottom = 100.dp
+            ),
             onClick = {
                 val result = viewModel.signUp()
 
